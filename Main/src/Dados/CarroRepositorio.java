@@ -1,3 +1,7 @@
+package Dados;
+
+import Negocio.Basico.Carro;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +57,7 @@ public class CarroRepositorio {
             System.out.println("Nenhum carro disponível!");
         } else {
             for (Carro carro : carros) {
-                carro.exibirInfo(); // Chama o método exibirInfo() da classe Carro
+                carro.exibirInfo(); // Chama o método exibirInfo() da classe Negocio.Classes.Carro
             }
         }
     }

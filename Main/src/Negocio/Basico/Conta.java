@@ -1,9 +1,9 @@
-package Classes;
+package Negocio.Basico;
 
 public abstract class Conta{
 
     private String nome;
-    private String idConta;
+    private int idConta;
     private String cpf;
     private String telefone;
     private boolean administrador;
@@ -23,12 +23,12 @@ public abstract class Conta{
         this.nome = nome;
     }
 
-    public String getIdConta(){
+    public int getIdConta(){
         return this.idConta;
     }
 
-    public void setIdConta(String idConta){
-        this.idConta = idConta;
+    public void setIdConta(int id){
+        this.idConta = id;
     }
 
     public String getCpf(){
@@ -51,9 +51,9 @@ public abstract class Conta{
 
     public String toString(){
         if(this.administrador) {
-            return "Administrador: " + this.getNome() + "\nCPF: " + this.getCpf() + "\nTelefone: " + this.getTelefone();
+            return "Administrador: " + this.getNome() + "\nID: " + this.getIdConta() + "\nCPF: " + this.getCpf() + "\nTelefone: " + this.getTelefone();
         } else {
-            return "Cliente: " + this.getNome() + "\nCPF: " + this.getCpf() + "\nTelefone: " + this.getTelefone();
+            return "Cliente: " + this.getNome()+ "\nID: " + this.getIdConta() + "\nCPF: " + this.getCpf() + "\nTelefone: " + this.getTelefone();
         }
     }
 }
