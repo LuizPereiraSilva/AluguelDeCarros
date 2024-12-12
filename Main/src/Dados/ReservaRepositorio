@@ -17,12 +17,12 @@ public class ReservaRepositorio {
         reservas.add(reserva);
         System.out.println("Reserva adicionada com sucesso!");
     }
-    public void remover(String cliente) {
+    public void remover(Cliente cliente) {
         boolean encontrada = false;
         for (int i = 0; i < reservas.size(); i++) {
             if (reservas.get(i).getCliente().equals(cliente)) {
                 reservas.remove(i);
-                System.out.println("Reserva do cliente '" + cliente + "' removida com sucesso.");
+                System.out.println("Reserva do cliente '" + reservas.get(i).getCliente().getNome() + "' removida com sucesso.");
                 encontrada = true;
                 break;
             }
@@ -70,4 +70,4 @@ public class ReservaRepositorio {
         }
     }
 }
-      
+        
