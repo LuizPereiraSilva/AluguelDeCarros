@@ -48,7 +48,8 @@ public abstract class Conta{
     }
 
     public boolean getAdministrador(){return administrador;}
-
+    
+    @Override
     public String toString(){
         if(this.administrador) {
             return "Administrador: " + this.getNome() + "\nID: " + this.getIdConta() + "\nCPF: " + this.getCpf() + "\nTelefone: " + this.getTelefone();
