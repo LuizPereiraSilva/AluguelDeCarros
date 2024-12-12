@@ -56,4 +56,19 @@ public abstract class Conta{
             return "Cliente: " + this.getNome()+ "\nID: " + this.getIdConta() + "\nCPF: " + this.getCpf() + "\nTelefone: " + this.getTelefone();
         }
     }
+
+     @Override
+    public boolean equals(Object obj) {
+        boolean resultado = false;
+        if (obj instanceof Conta) {
+            Conta param = (Conta) obj;
+            // Não considera se ambos os objetos têm valores nulos de atributos
+            if (param.getNumero() != null 
+                    && param.getNumero().equals(this.getNumero()) 
+                    && param.getSaldo() == this.getSaldo()) {
+                resultado = true;
+            }
+        }
+        return resultado;        
+    }
 }
