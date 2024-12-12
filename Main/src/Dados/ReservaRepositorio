@@ -1,9 +1,16 @@
+package Dados;
+
+import Negocio.Basico.Cliente;
+import Negocio.Basico.Reserva;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservasRepositorio {
-    private List<Reserva> reservas
-    public ReservasRepositrio() {
+public class ReservaRepositorio {
+
+    private List<Reserva> reservas;
+
+    public ReservaRepositorio() {
         this.reservas = new ArrayList<>();
     }
     public void adicionarReserva(Reserva reserva) {
@@ -13,7 +20,7 @@ public class ReservasRepositorio {
     public void remover(String cliente) {
         boolean encontrada = false;
         for (int i = 0; i < reservas.size(); i++) {
-            if (reservas.get(i).getCliente().equalsIgnoreCase(cliente)) {
+            if (reservas.get(i).getCliente().equals(cliente)) {
                 reservas.remove(i);
                 System.out.println("Reserva do cliente '" + cliente + "' removida com sucesso.");
                 encontrada = true;
@@ -24,23 +31,23 @@ public class ReservasRepositorio {
             System.out.println("Reserva do cliente '" + cliente + " não encontrada.");
         }
     }
-    public Reserva buscar(String cliente) {
+    public Reserva buscar(Cliente cliente) {
         for (Reserva reserva : reservas) {
-            if (reserva.getCliente().equalsIgnoreCase(cliente)) {
+            if (reserva.getCliente().equals(cliente)) {
                 return reserva;
             }
         }
-        System.out.println("Reserva do cliente '" + cliente + "' não encontrada.");
-        return null; 
+        System.out.println("Reservas do cliente '" + cliente + "' não encontrada.");
+        return null;
     }
     public void atualizar(Reserva reservaAtualizada) {
         boolean encontrada = false;
         for (int i = 0; i < reservas.size(); i++) {
-            if (reservas.get(i).getCliente().equalsIgnoreCase(reservaAtualizada.getCliente())) {
+            if (reservas.get(i).getCliente().equals(reservaAtualizada.getCliente())) {
                 reservas.set(i, reservaAtualizada);
                 System.out.println("Reserva do cliente '" + reservaAtualizada.getCliente() + "' atualizada com sucesso.");
                 encontrada = true;
-                break
+                break;
             }
         }
         if (!encontrada) {
@@ -54,12 +61,13 @@ public class ReservasRepositorio {
             System.out.println("Lista de Reservas:");
             for (Reserva reserva : reservas) {
                 System.out.println("Carro: " + reserva.getCarro() + ", Cliente: " + reserva.getCliente() +
-                                   ", Data Início: " + reserva.getDataInicio() +
-                                   ", Data Final: " + reserva.getDataFinal() +
-                                   ", Preço: R$" + reserva.getPreco() +
-                                   ", Forma de Pagamento: " + reserva.getFormaPagamento() +
-                                   ", Status do Pagamento: " + reserva.getPagamento());
+                        ", Data Início: " + reserva.getDatainicio() +
+                        ", Data Final: " + reserva.getDatafinal() +
+                        ", Preço: R$" + reserva.getCarro().getPreco() +
+                        ", Forma de Pagamento: " + reserva.getFormapagamento() +
+                        ", Status do Pagamento: " + reserva.getPagamento());
             }
         }
     }
 }
+      
