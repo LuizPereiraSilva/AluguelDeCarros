@@ -5,19 +5,20 @@ import java.util.Date;
 
 public class Reserva {
     private Carro carro;
+    private int numero;
     private Cliente cliente;
     private Date datainicio;
     private Date datafinal;
     private String formapagamento;
-    private String pagamento;
+    private boolean pagamento;
 
-    public Reserva(Carro carro, Cliente cliente, Date datainício, Date datafinal, String formapagamento, String pagamento) {
+    public Reserva(Carro carro, Conta cliente, Date datainicio, Date datafinal, String formapagamento) {
         this.carro = carro;
-        this.cliente = cliente;
+        this.cliente = ((Cliente)cliente);
         this.datainicio = datainicio;
         this.datafinal = datafinal;
         this.formapagamento = formapagamento;
-        this.pagamento = pagamento;
+        this.pagamento = false;
     }
     public Cliente getCliente() {
         return cliente;
@@ -26,6 +27,10 @@ public class Reserva {
     public void setCliente(Cliente cliente){
         this.cliente = cliente;
     }
+
+    public int getNumero(){return this.numero;}
+
+    public void setNumero(int numero){this.numero = numero;};
 
     public Carro getCarro() {
         return carro;
@@ -59,16 +64,24 @@ public class Reserva {
         this.formapagamento = formapagamento;
     }
 
-    public String getPagamento() {
+    public boolean getPagamento() {
         return pagamento;
     }
 
-    public void setPagamento(String pagamento) {
+    public void setPagamento(boolean pagamento) {
         this.pagamento = pagamento;
     }
 
-    public void cancelarReserva(Reserva reserva){
-        
+    public String toString(){
+        String resultado = "\nReserva " + this.numero + ": \n\n";
+        resultado += this.cliente.toString();
+        resultado += this.carro.toString();
+        resultado += " \n\nData de inicio: "+ this.datainicio;
+        resultado += " \nData final: " + this.datafinal;
+        resultado += " \nForma de pagamento: " + this.formapagamento;
+        resultado += " \nStatus do pagamento: " + this.pagamento;
+
+        return resultado;
     }
 
 }

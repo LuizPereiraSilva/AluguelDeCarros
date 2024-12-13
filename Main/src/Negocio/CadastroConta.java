@@ -60,7 +60,7 @@ public class CadastroConta {
         }
     }
 
-    public void listarContas(){
-        System.out.println(repositorio);
+    public String listarContas(){
+        return repositorio.toString();
     }
 }

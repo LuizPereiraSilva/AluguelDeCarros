@@ -1,54 +1,59 @@
 package Negocio.Basico;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Carro {
 
     private String modelo;
-    private String idCarro; // A placa do carro
-    private List<String> reservasFuturas; // Lista para armazenar as reservas futuras
+    private int idModelo;
+    private int idCarro; // A placa do carro
     private float preco;
     private String caracteristicas;
-    private boolean disponibilidade;
-
     
-    public Carro(String modelo, String idCarro, float preco, String caracteristicas, boolean disponibilidade) {
-        this.modelo = modelo;
+    public Carro(int modelo, int idCarro, float preco, String caracteristicas) {
+        this.setIdModelo(modelo);
         this.idCarro = idCarro;
         this.preco = preco;
         this.caracteristicas = caracteristicas;
-        this.disponibilidade = disponibilidade;
-        this.reservasFuturas = new ArrayList<>(); // Inicializa a lista de reservas
     }
 
     // Métodos get set
+    public int getIdModelo(){ return this.idModelo; }
+
+    public void setIdModelo(int id){
+        this.idModelo = id;
+
+        switch(id){
+            case 1:
+                this.modelo = "Hatchback";
+                break;
+
+            case 2:
+                this.modelo = "Sedan";
+                break;
+
+            case 3:
+                this.modelo = "Pickup";
+                break;
+
+            case 4:
+                this.modelo = "SUV";
+                break;
+
+            default:
+                this.modelo = null;
+                break;
+        }
+    }
+
     public String getModelo() {
         return modelo;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public String getIdCarro() {
+    public int getIdCarro() {
         return idCarro;
     }
 
-    public void setIdCarro(String idCarro) {
+    public void setIdCarro(int idCarro) {
         this.idCarro = idCarro;
-    }
-
-    public List<String> getReservasFuturas() {
-        return reservasFuturas;
-    }
-
-    public void adicionarReserva(String reserva) {
-        this.reservasFuturas.add(reserva);
-    }
-
-    public void removerReserva(String reserva) {
-        this.reservasFuturas.remove(reserva);
     }
 
     public float getPreco() {
@@ -67,26 +72,14 @@ public class Carro {
         this.caracteristicas = caracteristicas;
     }
 
-    public boolean isDisponibilidade() {
-        return disponibilidade;
-    }
-
-    public void setDisponibilidade(boolean disponibilidade) {
-        this.disponibilidade = disponibilidade;
-    }
-
-    // metodo pra ver se esta disponivel
-    public boolean verificarDisponibilidade() {
-        return disponibilidade && reservasFuturas.isEmpty(); // O carro está disponível se não houver reservas futuras
-    }
-
     // metodo para ver informacao do carro
-    public void exibirInfo() {
-        System.out.println("Modelo: " + modelo);
-        System.out.println("Placa: " + idCarro);
-        System.out.println("Preço: R$ " + preco);
-        System.out.println("Características: " + caracteristicas);
-        System.out.println("Disponibilidade: " + (disponibilidade ? "Disponível" : "Indisponível"));
-        System.out.println("Reservas Futuras: " + reservasFuturas);
+    public String toString() {
+        String resultado = "\n\nCarro " + this.idCarro + ": ";
+        resultado += " \nModelo: " + this.modelo;
+        resultado += " \nID do carro: " + this.idCarro;
+        resultado += " \nPreço: R$ " + this.preco;
+        resultado += " \nCaracterísticas: " + this.caracteristicas;
+
+        return resultado;
     }
 }

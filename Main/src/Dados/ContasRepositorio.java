@@ -72,7 +72,7 @@ public class ContasRepositorio implements RepositoriosInterface{
     }
 
     public String toString(){
-        String aux = "\n\nLista:\n\n";
+        String aux = "\n\nLista de Contas:\n\n";
 
         for(int i = 0; i < this.contasIndex; i++){
             aux += contas[i].toString() + "\n\n";

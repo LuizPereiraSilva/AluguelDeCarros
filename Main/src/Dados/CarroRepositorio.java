@@ -2,79 +2,100 @@ package Dados;
 
 import Negocio.Basico.Carro;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CarroRepositorio {
 
-    private List<Carro> carros; // lista dos carros
+    private Carro[] carros; // lista dos carros
+    private int contador;
+    private int tamanho;
+    private static CarroRepositorio instance;
 
     // inicializa a lista dos carros
-    public CarroRepositorio() {
-        this.carros = new ArrayList<>();
+    private CarroRepositorio(int tamanho) {
+        this.carros = new Carro[tamanho];
+        this.contador = 0;
+        this.tamanho = tamanho;
+    }
+
+    public static CarroRepositorio getInstance(){
+        if(instance == null){
+            instance = new CarroRepositorio(100);
+        }
+
+        return instance;
     }
 
     // adicionar carro
     public void adicionarCarro(Carro carro) {
-        carros.add(carro);
+        if(this.contador < tamanho){
+            carros[contador] = carro;
+            contador++;
+        }
     }
 
-    // remover carro pelo id (placa)
-    public boolean removerCarroPorId(String idCarro) {
-        for (Carro carro : carros) {
-            if (carro.getIdCarro().equals(idCarro)) {
-                carros.remove(carro);
-                return true;
+    // remover carro pelo id
+    public void removerCarro(int idCarro) {
+        int aux = this.buscarIndexCarro(idCarro);
+        if(aux != -1){
+            for(int i = aux; i < contador; i++){
+                if(i < contador-1) {
+                    this.carros[i] = this.carros[i+1];
+                } else{
+                    this.carros[i] = null;
+                }
             }
+            this.contador--;
         }
-        return false;
     }
 
     // buscar carro pelo id (placa)
-    public Carro buscarCarroPorId(String idCarro) {
-        for (Carro carro : carros) {
-            if (carro.getIdCarro().equals(idCarro)) {
-                return carro;
+    public Carro buscarCarroPorId(int idCarro) {
+        int aux = buscarIndexCarro(idCarro);
+
+        if(aux != -1){
+            return carros[aux];
+        }
+
+        return null;
+    }
+
+    private int buscarIndexCarro(int idCarro){
+        for(int i = 0; i < this.tamanho; i++){
+            if(carros[i].getIdCarro() == idCarro){
+                return i;
             }
         }
-        return null; 
+        return -1;
     }
 
     // buscar carro por modelo
-    public List<Carro> buscarCarrosPorModelo(String modelo) {
-        List<Carro> carrosEncontrados = new ArrayList<>();
-        for (Carro carro : carros) {
-            if (carro.getModelo().equalsIgnoreCase(modelo)) {
-                carrosEncontrados.add(carro);
+    public Carro[] buscarCarrosPorModelo(int modelo) {
+        Carro[] carrosEncontrados = new Carro[this.tamanho];
+        for (int i = 0; i < this.contador; i++) {
+            for(int j = 0; ; ) {
+                if (carros[i].getIdModelo() == modelo) {
+                    carrosEncontrados[j] = carros[i];
+                    j++;
+                }
             }
         }
         return carrosEncontrados;
     }
 
-    // listar todos os carros
-    public void listarTodosCarros() {
-        if (carros.isEmpty()) {
-            System.out.println("Nenhum carro disponível!");
-        } else {
-            for (Carro carro : carros) {
-                carro.exibirInfo(); // Chama o método exibirInfo() da classe Negocio.Classes.Carro
-            }
-        }
-    }
-
     // atualizar o preço
-    public boolean atualizarPreco(String idCarro, float novoPreco) {
+    public void atualizarPreco(int idCarro, float novoPreco) {
         Carro carro = buscarCarroPorId(idCarro);
         if (carro != null) {
             carro.setPreco(novoPreco);
-            return true;
         }
-        return false;
     }
 
-    // checar se esta disponivel
-    public boolean verificarDisponibilidade(String idCarro) {
-        Carro carro = buscarCarroPorId(idCarro);
-        return carro != null && carro.isDisponibilidade();
+    public String toString(){
+        String resultado = "\n\nLista de carros: \n";
+
+        for(int i = 0; i < this.contador; i++){
+            resultado += carros[i].toString() + "\n";
+        }
+
+        return resultado;
     }
 }
