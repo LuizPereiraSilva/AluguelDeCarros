@@ -39,7 +39,7 @@ public class ContasRepositorio implements RepositoriosInterface{
         return -1;
     }
 
-    public void remover(int idConta){
+    public void removerConta(int idConta){
 
         int aux = this.buscarIndexConta(idConta);
 

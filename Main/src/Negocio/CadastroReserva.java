@@ -51,8 +51,8 @@ public class CadastroReserva {
         this.reservaRepositorio.removerReserva(idReserva);
     }
 
-    public void buscarReserva(int idReserva){
-        this.reservaRepositorio.buscarReserva(idReserva);
+    public Reserva buscarReserva(int idReserva){
+        return this.reservaRepositorio.buscarReserva(idReserva);
     }
 
     public void atualizarReserva(int idReserva, Carro carro, Conta cliente, Date dataInicio,
@@ -65,7 +65,7 @@ public class CadastroReserva {
                 && auxReserva != null){
             Reserva reserva = new Reserva(carro, cliente, dataInicio, dataFinal, formaDePagamento);
             reserva.setNumero(idReserva);
-            reservaRepositorio.adicionarReserva(reserva);
+            reservaRepositorio.atualizarReserva(reserva);
         }
     }
 

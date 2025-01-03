@@ -38,7 +38,7 @@ public class CadastroConta {
     }
 
     public void removerConta(int contaId){
-        repositorio.remover(contaId);
+        repositorio.removerConta(contaId);
     }
 
     public Conta buscarConta(int contaId){

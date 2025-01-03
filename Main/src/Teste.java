@@ -57,7 +57,7 @@ public class Teste{
 
         print(reservaCadastro.listarReservas());
 
-
+        print("Realizando segundo cadastro de reserva: ");
 
         reservaCadastro.adicionarReserva(carroCadastro.buscarCarro(3), contaCadastro.buscarConta(1),
                 new Date(2024, 12, 18), new Date(2024, 12, 21), "Crédito");
