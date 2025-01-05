@@ -1,8 +1,13 @@
 package Negocio;
+
 import Dados.ContasRepositorio;
 import Negocio.Basico.Conta;
 import Negocio.Basico.Cliente;
 import Negocio.Basico.Administrador;
+
+import Exceptions.Contas.ContaJaExisteException;
+import Exceptions.Contas.ContaNaoExisteException;
+import Exceptions.RepositorioCheioException;
 
 public class CadastroConta {
 
@@ -22,14 +27,17 @@ public class CadastroConta {
         return instancia;
     }
 
-    public void cadastrarCliente(String nome, String cpf, String telefone){
+    public void cadastrarCliente(String nome, String cpf, String telefone) throws
+            ContaJaExisteException, RepositorioCheioException{
+
         Conta cliente = new Cliente(nome, cpf, telefone);
         cliente.setIdConta(this.ultimoId + 1);
         this.ultimoId++;
         this.repositorio.adicionarConta(cliente);
     }
 
-    public void cadastrarAdministrador(String nome, String cpf, String telefone){
+    public void cadastrarAdministrador(String nome, String cpf, String telefone) throws
+            ContaJaExisteException, RepositorioCheioException{
 
         Conta administrador = new Administrador(nome, cpf, telefone);
         administrador.setIdConta(this.ultimoId + 1);
@@ -37,16 +45,19 @@ public class CadastroConta {
         this.repositorio.adicionarConta(administrador);
     }
 
-    public void removerConta(int contaId){
+    public void removerConta(int contaId) throws ContaNaoExisteException{
         repositorio.removerConta(contaId);
     }
 
-    public Conta buscarConta(int contaId){
+    public Conta buscarConta(int contaId) throws ContaNaoExisteException{
         return repositorio.buscarConta(contaId);
     }
 
-    public void atualizarConta(String nome, int id, String cpf, String telefone){
+    public void atualizarConta(String nome, int id, String cpf, String telefone) throws
+            ContaNaoExisteException{
+
         Conta conta = repositorio.buscarConta(id);
+
         if(conta != null) {
             if (conta.getAdministrador()) {
                 Conta administrador = new Administrador(nome, cpf, telefone);

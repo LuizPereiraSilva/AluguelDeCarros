@@ -72,6 +72,26 @@ public class ReservaRepositorio {
         }
     }
 
+    public Reserva[] buscarReservasPorCliente(int idCliente){
+        Reserva[] auxReservas = new Reserva[this.tamanho];
+        int auxContador = 0;
+
+        for(int i = 0; i < this.tamanho; i++){
+            if(this.reservas[i].getCliente().getIdConta() == idCliente){
+                auxReservas[auxContador] = this.reservas[i];
+                auxContador++;
+            }
+        }
+
+        Reserva[] retorno = new Reserva[auxContador];
+
+        for(int i = 0; i < auxContador; i++){
+            retorno[i] = auxReservas[i];
+        }
+
+        return retorno;
+    }
+
     public String toString(){
         String resultado = "\n\nLista de reservas: \n\n";
 

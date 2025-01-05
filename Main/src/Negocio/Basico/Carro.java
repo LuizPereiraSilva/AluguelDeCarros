@@ -7,6 +7,7 @@ public class Carro {
     private int idCarro; // A placa do carro
     private float preco;
     private String caracteristicas;
+    private boolean disponivel;
     
     public Carro(int modelo, int idCarro, float preco, String caracteristicas) {
         this.setIdModelo(modelo);
@@ -70,6 +71,10 @@ public class Carro {
 
     public void setCaracteristicas(String caracteristicas) {
         this.caracteristicas = caracteristicas;
+    }
+
+    public void setDisponivel(boolean disponivel){
+        this.disponivel = disponivel;
     }
 
     // metodo para ver informacao do carro

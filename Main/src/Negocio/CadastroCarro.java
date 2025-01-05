@@ -15,7 +15,7 @@ public class CadastroCarro {
         this.repositorio = CarroRepositorio.getInstance();
     }
 
-    public static CadastroCarro getInstance(){
+    protected static CadastroCarro getInstance(){
         if (instance == null) {
             instance = new CadastroCarro();
         }

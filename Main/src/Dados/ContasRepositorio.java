@@ -1,6 +1,9 @@
 package Dados;
 import Negocio.Basico.Conta;
 import Interfaces.RepositoriosInterface;
+import Exceptions.RepositorioCheioException;
+import Exceptions.Contas.ContaNaoExisteException;
+import Exceptions.Contas.ContaJaExisteException;
 
 public class ContasRepositorio implements RepositoriosInterface{
 
@@ -22,53 +25,62 @@ public class ContasRepositorio implements RepositoriosInterface{
         return repositorio;
     }
 
-    public void adicionarConta(Conta conta){
+    public void adicionarConta(Conta conta) throws RepositorioCheioException, ContaJaExisteException{
+        this.buscarCpfConta(conta.getCpf());
+
         if(contasIndex < this.tamanho) {
             this.contas[this.contasIndex] = conta;
             this.contasIndex++;
+        } else{
+            throw new RepositorioCheioException();
         }
     }
 
-    private int buscarIndexConta(int id){
+    private void buscarCpfConta(String cpf) throws ContaJaExisteException{
+        for(int i = 0; i < this.contasIndex; i++){
+            if(this.contas[i].getCpf().equals(cpf)){
+                throw new ContaJaExisteException();
+            }
+        }
+    }
+
+    private int buscarIndexConta(int id) throws ContaNaoExisteException{
         for (int i = 0; i < this.contasIndex; i++){
             if(contas[i].getIdConta() == id){
                 return i;
             }
         }
 
-        return -1;
+        throw new ContaNaoExisteException();
     }
 
-    public void removerConta(int idConta){
+    public void removerConta(int idConta) throws ContaNaoExisteException{
 
         int aux = this.buscarIndexConta(idConta);
 
-        if(aux != -1){
-            for(int i = 0; i+aux < 10; i++){
-                if(i+aux < 9) {
-                    contas[i + aux] = this.contas[i + aux + 1];
-                } else{
-                    contas[i+aux] = null;
-                }
+
+        for (int i = 0; i + aux < 10; i++) {
+            if (i + aux < 9) {
+                contas[i + aux] = this.contas[i + aux + 1];
+            } else {
+                contas[i + aux] = null;
             }
-
-            this.contasIndex --;
         }
+
+        this.contasIndex--;
+
     }
 
-    public Conta buscarConta(int idConta){
+    public Conta buscarConta(int idConta) throws ContaNaoExisteException{
         int aux = this.buscarIndexConta(idConta);
-        if(aux != -1) {
-            return contas[aux];
-        }
-        return null;
+
+        return contas[aux];
     }
 
-    public void atualizarConta(Conta conta){
+    public void atualizarConta(Conta conta) throws ContaNaoExisteException{
         int aux = this.buscarIndexConta(conta.getIdConta());
-        if(aux != -1) {
-            contas[aux] = conta;
-        }
+
+        contas[aux] = conta;
     }
 
     public String toString(){
