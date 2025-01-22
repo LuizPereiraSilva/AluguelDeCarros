@@ -20,7 +20,7 @@ public class CadastroConta {
         this.ultimoId = 0;
     }
 
-    public static CadastroConta getInstance(){
+    protected static CadastroConta getInstance(){
         if(instancia == null){
             instancia = new CadastroConta();
         }

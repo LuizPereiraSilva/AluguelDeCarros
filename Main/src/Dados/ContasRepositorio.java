@@ -1,11 +1,11 @@
 package Dados;
 import Negocio.Basico.Conta;
-import Interfaces.RepositoriosInterface;
+import Interfaces.RepositorioContasInterface;
 import Exceptions.RepositorioCheioException;
 import Exceptions.Contas.ContaNaoExisteException;
 import Exceptions.Contas.ContaJaExisteException;
 
-public class ContasRepositorio implements RepositoriosInterface{
+public class ContasRepositorio implements RepositorioContasInterface{
 
     private Conta[] contas;
     private int contasIndex;

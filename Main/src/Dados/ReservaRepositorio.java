@@ -2,8 +2,9 @@ package Dados;
 
 import Negocio.Basico.Cliente;
 import Negocio.Basico.Reserva;
+import Interfaces.RepositorioReservasInterface;
 
-public class ReservaRepositorio {
+public class ReservaRepositorio implements RepositorioReservasInterface{
 
     private Reserva[] reservas;
     private int contador;

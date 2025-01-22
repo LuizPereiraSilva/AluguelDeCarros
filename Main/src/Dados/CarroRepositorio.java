@@ -1,8 +1,9 @@
 package Dados;
 
 import Negocio.Basico.Carro;
+import Interfaces.RepositorioCarroInterface;
 
-public class CarroRepositorio {
+public class CarroRepositorio implements RepositorioCarroInterface{
 
     private Carro[] carros; // lista dos carros
     private int contador;
