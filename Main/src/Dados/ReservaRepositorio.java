@@ -93,7 +93,26 @@ public class ReservaRepositorio implements RepositorioReservasInterface{
         return retorno;
     }
 
-    public String toString(){
+public Reserva[] buscarReservasPorCarro(int carroId){
+    Reserva [] resultado= new Reserva [tamanho];
+    int auxj =0;
+
+    for (int i =0; i < tamanho; i++){
+        if(this.reservas[i].getcarro().getIdCarro()==carroId{
+            resultado[auxj]=thisreservas.[i];
+        }
+    }
+    
+    Reserva[] resultado2 = new Reserva [auxj+1];
+    
+    for(int i = 0; i < resultado2.length; i++){
+        resultado2[2] = resultado[i];
+    }
+
+    return resutado2;
+}  
+    
+public String toString(){
         String resultado = "\n\nLista de reservas: \n\n";
 
         for(int i = 0; i < contador; i++){
