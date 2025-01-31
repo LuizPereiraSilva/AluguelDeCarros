@@ -56,6 +56,10 @@ public class CadastroReserva {
         return this.reservaRepositorio.buscarReserva(idReserva);
     }
 
+    public Resreva [] buscarReservaPorCarro(int carroID ) {
+        return this.reservaRepositório.buscarReservas.RbuscraResesrvasporCarro(carroId);
+    }
+
     public void atualizarReserva(int idReserva, Carro carro, Conta cliente, Date dataInicio,
                                  Date dataFinal, String formaDePagamento){
 
