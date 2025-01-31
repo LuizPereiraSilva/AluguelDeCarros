@@ -83,5 +83,14 @@ public class Reserva {
 
         return resultado;
     }
+     public String gerarRelatorio() {
+        StringBuilder relatorio = new StringBuilder();
+        relatorio.append("Número da reserva: ").append(numero).append("\n");
+        relatorio.append("Cliente: ").append(cliente.getnome()).append(" (CPF: ").append(cliente.getcpf()).append(")\n");
+        relatorio.append("Carro: ").append(carro.getModelo()).append(" (Placa: ").append(carro.getIdCarro()).append(")\n");
+        relatorio.append("Período de aluguel: ").append(dataInicio).append(" a ").append(dataFim).append("\n");
+     
 
+        return relatorio.toString();
+    }
 }
