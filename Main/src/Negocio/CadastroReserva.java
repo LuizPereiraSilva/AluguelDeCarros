@@ -80,4 +80,14 @@ public class CadastroReserva {
     public String listarReservas(){
         return reservaRepositorio.toString();
     }
+
+    public String gerarRelatorioCompleto() {
+        StringBuilder relatorioCompleto = new StringBuilder();
+        relatorioCompleto.append("Relatório de Reservas\n\n");
+        for (Reserva reserva : reservas) {
+            relatorioCompleto.append(reserva.gerarRelatorio()).append("\n\n");
+        }
+        return relatorioCompleto.toString();
+    }
+
 }
