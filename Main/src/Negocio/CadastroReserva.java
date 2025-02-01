@@ -46,6 +46,9 @@ public class CadastroReserva {
             ultimoIdReserva++;
             reservaRepositorio.adicionarReserva(reserva);
         }
+         if (dataFim.isBefore(dataInicio)) {
+            throws DataInvalidaException
+                }
     }
 
     public void removerReserva(int idReserva){
