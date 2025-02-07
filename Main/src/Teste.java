@@ -61,10 +61,10 @@ public class Teste{
                 "Administradores não podem fazer reservas. ");
 
         try {
-            cadastro.adicionarReserva(cadastro.buscarCarro(1), cadastro.buscarConta(1),
+            cadastro.cadastrarReserva(cadastro.buscarCarro(1), cadastro.buscarConta(1),
                     new Date(2024, 12, 15), new Date(2024, 12, 18), "Débito");
 
-            cadastro.adicionarReserva(cadastro.buscarCarro(3), cadastro.buscarConta(3),
+            cadastro.cadastrarReserva(cadastro.buscarCarro(3), cadastro.buscarConta(3),
                     new Date(2024, 12, 15), new Date(2024, 12, 18), "Débito");
         } catch(Exception e){
             print(e.getMessage());
@@ -75,7 +75,7 @@ public class Teste{
         print("Realizando segundo cadastro de reserva: ");
 
         try {
-            cadastro.adicionarReserva(cadastro.buscarCarro(3), cadastro.buscarConta(1),
+            cadastro.cadastrarReserva(cadastro.buscarCarro(3), cadastro.buscarConta(1),
                     new Date(2024, 12, 18), new Date(2024, 12, 21), "Crédito");
         }catch(Exception e){
             print(e.getMessage());
