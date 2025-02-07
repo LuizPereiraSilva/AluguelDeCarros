@@ -2,6 +2,8 @@ package Dados;
 
 import Negocio.Basico.Cliente;
 import Negocio.Basico.Reserva;
+import Negocio.Basico.Conta;
+import Negocio.Basico.Administrador;
 import Interfaces.RepositorioReservasInterface;
 
 public class ReservaRepositorio implements RepositorioReservasInterface{
@@ -93,13 +95,13 @@ public class ReservaRepositorio implements RepositorioReservasInterface{
         return retorno;
     }
 
-public Reserva[] buscarReservasPorCarro(int carroId){
+public Reserva[] buscarReservasPorCarro(int IdCarro){
     Reserva [] resultado= new Reserva [tamanho];
     int auxj =0;
 
     for (int i =0; i < tamanho; i++){
-        if(this.reservas[i].getcarro().getIdCarro()==carroId{
-            resultado[auxj]=thisreservas.[i];
+        if(this.reservas[i].getCarro().getIdCarro()==IdCarro) {
+            resultado[auxj]=this.reservas[i];
         }
     }
     
@@ -109,7 +111,7 @@ public Reserva[] buscarReservasPorCarro(int carroId){
         resultado2[2] = resultado[i];
     }
 
-    return resutado2;
+    return resultado2;
 }  
     
 public String toString(){
@@ -121,4 +123,6 @@ public String toString(){
 
         return resultado;
     }
+
 }
+

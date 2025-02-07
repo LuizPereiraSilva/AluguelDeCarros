@@ -8,6 +8,7 @@ import Negocio.Basico.Reserva;
 import Negocio.Basico.Carro;
 import Negocio.Basico.Conta;
 
+import Exceptions.DataInvalidaException;
 import Exceptions.Contas.ContaNaoExisteException;
 
 import java.util.Date;
@@ -35,20 +36,20 @@ public class CadastroReserva {
         return instance;
     }
 
-    public void adicionarReserva(Carro carro, Conta cliente, Date dataInicio, Date dataFinal,
-                                 String formaDePagamento){
+    public void cadastrarReserva(Carro carro, Conta cliente, Date datainicio, Date datafinal,
+                                 String formaDePagamento) throws DataInvalidaException {
 
         Carro auxCarro = this.carroRepositorio.buscarCarroPorId(carro.getIdCarro());
 
-        if(auxCarro != null){
-            Reserva reserva = new Reserva(carro, cliente, dataInicio, dataFinal, formaDePagamento);
+        if(auxCarro != null && datafinal.after(datainicio)){
+            Reserva reserva = new Reserva(carro, cliente, datainicio, datafinal, formaDePagamento);
             reserva.setNumero(ultimoIdReserva + 1);
             ultimoIdReserva++;
             reservaRepositorio.adicionarReserva(reserva);
         }
-         if (dataFim.isBefore(dataInicio)) {
-            throws DataInvalidaException
-                }
+        else {
+            throw new DataInvalidaException();
+        }
     }
 
     public void removerReserva(int idReserva){
@@ -59,8 +60,8 @@ public class CadastroReserva {
         return this.reservaRepositorio.buscarReserva(idReserva);
     }
 
-    public Resreva [] buscarReservaPorCarro(int carroID ) {
-        return this.reservaRepositório.buscarReservas.RbuscraResesrvasporCarro(carroId);
+    public Reserva[] buscarReservasCarro(int IdCarro) {
+        return this.reservaRepositorio.buscarReservasPorCarro(IdCarro);
     }
 
     public void atualizarReserva(int idReserva, Carro carro, Conta cliente, Date dataInicio,
@@ -87,7 +88,7 @@ public class CadastroReserva {
     public String gerarRelatorioCompleto() {
         StringBuilder relatorioCompleto = new StringBuilder();
         relatorioCompleto.append("Relatório de Reservas\n\n");
-        for (Reserva reserva : reservas) {
+        for (int i = 0; i < this.ultimoIdReserva; i++) {
             relatorioCompleto.append(reserva.gerarRelatorio()).append("\n\n");
         }
         return relatorioCompleto.toString();

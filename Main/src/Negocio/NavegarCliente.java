@@ -48,8 +48,8 @@ public class NavegarCliente {
         instance = null;
     }
 
-    public void realizarReserva(Carro carro, Date dataInicio, Date dataFinal, String metodoDePagamento){
-        reservas.adicionarReserva(carro, this.login, dataInicio, dataFinal, metodoDePagamento);
+    public void realizarReserva(Carro carro, Date datainicio, Date datafinal, String metodoDePagamento){
+        reservas.adicionarReserva(carro, this.login, datainicio, datafinal, metodoDePagamento);
     }
 
     public void removerReserva(int id){

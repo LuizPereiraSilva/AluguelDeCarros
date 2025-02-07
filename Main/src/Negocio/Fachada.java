@@ -1,5 +1,6 @@
 package Negocio;
 
+import Exceptions.DataInvalidaException;
 import Exceptions.Contas.ContaJaExisteException;
 import Exceptions.Contas.ContaNaoExisteException;
 import Exceptions.RepositorioCheioException;
@@ -85,9 +86,9 @@ public class Fachada {
 
     //Métodos de Reserva
 
-    public void adicionarReserva(Carro carro, Conta cliente, Date dataInicio, Date dataFinal,
-                                 String formaDePagamento){
-        reservas.adicionarReserva(carro, cliente, dataInicio, dataFinal, formaDePagamento);
+    public void cadastrarReserva(Carro carro, Conta cliente, Date dataInicio, Date dataFinal,
+                                 String formaDePagamento) throws DataInvalidaException{
+        reservas.cadastrarReserva(carro, cliente, dataInicio, dataFinal, formaDePagamento);
     }
 
     public void removerReserva(int idReserva){
