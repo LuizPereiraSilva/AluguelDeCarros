@@ -1,6 +1,7 @@
 package Negocio.Basico;
 
 
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Reserva {
@@ -83,12 +84,24 @@ public class Reserva {
 
         return resultado;
     }
+
+    public int daysDate() {
+
+     int diff = this.datafinal.getDate() - this.datainicio.getDate();
+
+     return diff;
+
+    }
+
     public String gerarRelatorio() {
         StringBuilder relatorio = new StringBuilder();
         relatorio.append("Número da reserva: ").append(numero).append("\n");
         relatorio.append("Cliente: ").append(cliente.getNome()).append(" (CPF: ").append(cliente.getCpf()).append(")\n");
         relatorio.append("Carro: ").append(carro.getModelo()).append(" (Placa: ").append(carro.getIdCarro()).append(")\n");
         relatorio.append("Período de aluguel: ").append(datainicio).append(" a ").append(datafinal).append("\n");
+        relatorio.append("Valor por dia: ").append(carro.getPreco()).append("\n");
+        relatorio.append("Valor total: ").append(carro.getPreco() * daysDate()).append("\n");
+
 
 
         return relatorio.toString();
