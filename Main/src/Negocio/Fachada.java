@@ -7,9 +7,6 @@ import Exceptions.RepositorioCheioException;
 import Negocio.Basico.Carro;
 import Negocio.Basico.Conta;
 import Negocio.Basico.Reserva;
-import Negocio.CadastroConta;
-import Negocio.CadastroCarro;
-import Negocio.CadastroReserva;
 
 import java.util.Date;
 
@@ -111,4 +108,6 @@ public class Fachada {
     public String listarReservas(){
         return reservas.listarReservas();
     }
+
+    public String relatorioReservas(){ return reservas.gerarRelatorioCompleto();}
 }

@@ -86,10 +86,9 @@ public class CadastroReserva {
     }
 
     public String gerarRelatorioCompleto() {
-        StringBuilder relatorioCompleto = new StringBuilder();
-        relatorioCompleto.append("Relatório de Reservas\n\n");
+        StringBuilder relatorioCompleto = new StringBuilder("Relatório de Reservas:\n\n");
         for (int i = 0; i < this.ultimoIdReserva; i++) {
-            relatorioCompleto.append(reserva.gerarRelatorio()).append("\n\n");
+            relatorioCompleto.append(reservaRepositorio.Relatorio()).append("\n\n");
         }
         return relatorioCompleto.toString();
     }

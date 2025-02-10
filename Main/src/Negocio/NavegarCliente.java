@@ -1,5 +1,6 @@
 package Negocio;
 
+import Exceptions.DataInvalidaException;
 import Negocio.Basico.Cliente;
 import Negocio.Basico.Carro;
 import Negocio.Basico.Reserva;
@@ -48,8 +49,8 @@ public class NavegarCliente {
         instance = null;
     }
 
-    public void realizarReserva(Carro carro, Date datainicio, Date datafinal, String metodoDePagamento){
-        reservas.adicionarReserva(carro, this.login, datainicio, datafinal, metodoDePagamento);
+    public void realizarReserva(Carro carro, Date datainicio, Date datafinal, String metodoDePagamento) throws DataInvalidaException {
+        reservas.cadastrarReserva(carro, this.login, datainicio, datafinal, metodoDePagamento);
     }
 
     public void removerReserva(int id){

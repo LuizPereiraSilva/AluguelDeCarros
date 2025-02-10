@@ -100,6 +100,8 @@ public class Teste{
         }
 
         print(cadastro.listarReservas());
+
+        print(cadastro.relatorioReservas());
     }
 
     public static void print(String line){

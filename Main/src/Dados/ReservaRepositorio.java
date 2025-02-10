@@ -6,7 +6,7 @@ import Negocio.Basico.Conta;
 import Negocio.Basico.Administrador;
 import Interfaces.RepositorioReservasInterface;
 
-public class ReservaRepositorio implements RepositorioReservasInterface{
+public class ReservaRepositorio implements RepositorioReservasInterface {
 
     private Reserva[] reservas;
     private int contador;
@@ -19,8 +19,8 @@ public class ReservaRepositorio implements RepositorioReservasInterface{
         this.tamanho = tamanho;
     }
 
-    public static ReservaRepositorio getInstance(){
-        if(instance == null){
+    public static ReservaRepositorio getInstance() {
+        if (instance == null) {
             instance = new ReservaRepositorio(100);
         }
         return instance;
@@ -28,15 +28,15 @@ public class ReservaRepositorio implements RepositorioReservasInterface{
 
 
     public void adicionarReserva(Reserva reserva) {
-        if(contador < this.tamanho){
+        if (contador < this.tamanho) {
             this.reservas[contador] = reserva;
         }
         contador++;
     }
 
-    private int buscarIndex(int numero){
-        for(int i = 0; i < this.contador; i++){
-            if(this.reservas[i].getNumero() == numero){
+    private int buscarIndex(int numero) {
+        for (int i = 0; i < this.contador; i++) {
+            if (this.reservas[i].getNumero() == numero) {
                 return i;
             }
         }
@@ -46,11 +46,11 @@ public class ReservaRepositorio implements RepositorioReservasInterface{
     public void removerReserva(int idReserva) {
         int aux = this.buscarIndex(idReserva);
 
-        if(aux != -1){
-            for(int i = aux; i < contador; i++){
-                if(i < contador - 1) {
+        if (aux != -1) {
+            for (int i = aux; i < contador; i++) {
+                if (i < contador - 1) {
                     this.reservas[i] = this.reservas[i + 1];
-                } else{
+                } else {
                     this.reservas[i] = null;
                 }
             }
@@ -62,7 +62,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface{
     public Reserva buscarReserva(int numero) {
         int aux = this.buscarIndex(numero);
 
-        if(aux != -1){
+        if (aux != -1) {
             return this.reservas[aux];
         }
         return null;
@@ -70,17 +70,17 @@ public class ReservaRepositorio implements RepositorioReservasInterface{
 
     public void atualizarReserva(Reserva reservaAtualizada) {
         int aux = this.buscarIndex(reservaAtualizada.getNumero());
-        if(aux != -1) {
+        if (aux != -1) {
             this.reservas[aux] = reservaAtualizada;
         }
     }
 
-    public Reserva[] buscarReservasPorCliente(int idCliente){
+    public Reserva[] buscarReservasPorCliente(int idCliente) {
         Reserva[] auxReservas = new Reserva[this.tamanho];
         int auxContador = 0;
 
-        for(int i = 0; i < this.tamanho; i++){
-            if(this.reservas[i].getCliente().getIdConta() == idCliente){
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.reservas[i].getCliente().getIdConta() == idCliente) {
                 auxReservas[auxContador] = this.reservas[i];
                 auxContador++;
             }
@@ -88,41 +88,49 @@ public class ReservaRepositorio implements RepositorioReservasInterface{
 
         Reserva[] retorno = new Reserva[auxContador];
 
-        for(int i = 0; i < auxContador; i++){
+        for (int i = 0; i < auxContador; i++) {
             retorno[i] = auxReservas[i];
         }
 
         return retorno;
     }
 
-public Reserva[] buscarReservasPorCarro(int IdCarro){
-    Reserva [] resultado= new Reserva [tamanho];
-    int auxj =0;
+    public Reserva[] buscarReservasPorCarro(int IdCarro) {
+        Reserva[] resultado = new Reserva[tamanho];
+        int auxj = 0;
 
-    for (int i =0; i < tamanho; i++){
-        if(this.reservas[i].getCarro().getIdCarro()==IdCarro) {
-            resultado[auxj]=this.reservas[i];
+        for (int i = 0; i < tamanho; i++) {
+            if (this.reservas[i].getCarro().getIdCarro() == IdCarro) {
+                resultado[auxj] = this.reservas[i];
+            }
         }
-    }
-    
-    Reserva[] resultado2 = new Reserva [auxj+1];
-    
-    for(int i = 0; i < resultado2.length; i++){
-        resultado2[2] = resultado[i];
+
+        Reserva[] resultado2 = new Reserva[auxj + 1];
+
+        for (int i = 0; i < resultado2.length; i++) {
+            resultado2[2] = resultado[i];
+        }
+
+        return resultado2;
     }
 
-    return resultado2;
-}  
-    
-public String toString(){
+    public String toString() {
         String resultado = "\n\nLista de reservas: \n\n";
 
-        for(int i = 0; i < contador; i++){
-            resultado += reservas[i].toString()+ "\n";
+        for (int i = 0; i < contador; i++) {
+            resultado += reservas[i].toString() + "\n";
         }
 
         return resultado;
     }
 
+    public String Relatorio() {
+
+        String relatoriozinho = "";
+        for (int i = 0; i < contador; i++) {
+            relatoriozinho = this.reservas[i].gerarRelatorio();
+        }
+        return relatoriozinho;
+    }
 }
 

@@ -83,9 +83,8 @@ public class Reserva {
 
         return resultado;
     }
-
     public String gerarRelatorio() {
-    StringBuilder relatorio = new StringBuilder();
+        StringBuilder relatorio = new StringBuilder();
         relatorio.append("Número da reserva: ").append(numero).append("\n");
         relatorio.append("Cliente: ").append(cliente.getNome()).append(" (CPF: ").append(cliente.getCpf()).append(")\n");
         relatorio.append("Carro: ").append(carro.getModelo()).append(" (Placa: ").append(carro.getIdCarro()).append(")\n");
@@ -93,6 +92,6 @@ public class Reserva {
 
 
         return relatorio.toString();
-        }
+    }
 
 }
