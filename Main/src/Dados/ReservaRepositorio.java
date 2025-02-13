@@ -85,11 +85,10 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
                 auxReservas[auxContador] = this.reservas[i];
                 auxContador++;
             }
-            else {
-                throw new NenhumaReservaException();
-            }
         }
-
+        if(auxContador == 0) {
+            throw new NenhumaReservaException();
+        }
         Reserva[] retorno = new Reserva[auxContador];
 
         for (int i = 0; i < auxContador; i++) {
@@ -134,7 +133,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
 
         for (int i = 0; i < reservasFiltradas.length; i++) {
 
-            relatoriozinho = reservasFiltradas[i].gerarRelatorio() + "\n";
+            relatoriozinho += reservasFiltradas[i].gerarRelatorio() + "\n";
         }
 
         return relatoriozinho;
