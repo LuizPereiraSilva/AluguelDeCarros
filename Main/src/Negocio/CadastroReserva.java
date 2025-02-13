@@ -95,7 +95,7 @@ public class CadastroReserva {
     }
 
     public String gerarFaturamentoPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException {
-        String resultado = "O faturamento no período foi de: " + reservaRepositorio.gerarFaturamentoPorPeriodo(datainicio,datafinal);
+        String resultado = "O faturamento no período de " + datainicio + " a " + datafinal + " foi de: RS" + reservaRepositorio.gerarFaturamentoPorPeriodo(datainicio,datafinal);
         return resultado;
     }
 

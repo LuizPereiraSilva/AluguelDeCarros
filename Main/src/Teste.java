@@ -4,6 +4,7 @@ import Exceptions.Contas.ContaJaExisteException;
 import Exceptions.RepositorioCheioException;
 
 import java.time.LocalDate;
+import Negocio.Basico.Reserva;
 import java.util.Date;
 
 public class Teste{
@@ -101,12 +102,22 @@ public class Teste{
         }
 
         print(cadastro.listarReservas());
+
         try {
             print(cadastro.relatorioReservas(1));
 
         }catch(Exception e){
             print(e.getMessage());
         }
+
+
+        try{
+            print(cadastro.gerarFaturamentoNoPeriodo(LocalDate.of(2024,12, 12), LocalDate.of(2024, 12, 25)));
+        }catch(Exception e){
+            print(e.getMessage());
+        }
+
+
 
 
 
