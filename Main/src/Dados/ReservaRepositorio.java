@@ -1,11 +1,10 @@
 package Dados;
 
-import Negocio.Basico.Cliente;
 import Negocio.Basico.Reserva;
-import Negocio.Basico.Conta;
-import Negocio.Basico.Administrador;
 import Interfaces.RepositorioReservasInterface;
 import Exceptions.NenhumaReservaException;
+
+import java.time.LocalDate;
 
 public class ReservaRepositorio implements RepositorioReservasInterface {
 
@@ -97,7 +96,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         return retorno;
     }
 
-    public Reserva[] buscarReservasPorCarro(int IdCarro) {
+    public Reserva[] buscarReservasPorCarro(int IdCarro) throws NenhumaReservaException {
         Reserva[] resultado = new Reserva[tamanho];
         int auxj = 0;
 
@@ -106,6 +105,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
                 resultado[auxj] = this.reservas[i];
             }
         }
+        if(auxj == 0) { throw new NenhumaReservaException();}
 
         Reserva[] resultado2 = new Reserva[auxj + 1];
 
@@ -115,6 +115,50 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
 
         return resultado2;
     }
+
+    public Reserva[] buscarReservasPorPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException {
+
+        int encontradas = 0;
+
+        for (int i = 0; i < this.contador; i++) {
+            Reserva reserva = this.reservas[i];
+            if (reserva != null) {
+                LocalDate reservaDataInicio = reserva.getDatainicio();
+                LocalDate reservaDataFinal = reserva.getDatafinal();
+
+                if ((reservaDataInicio.isBefore(datafinal) || reservaDataInicio.isEqual(datafinal)) &&
+                        (reservaDataFinal.isAfter(datainicio) || reservaDataFinal.isEqual(datainicio))) {
+                    encontradas++;
+                }
+            }
+        }
+
+        if (encontradas == 0) {
+            throw new NenhumaReservaException();
+        }
+
+        Reserva[] reservasDentroDoPeriodo = new Reserva[encontradas];
+        int index = 0;
+
+        for (int i = 0; i < this.contador; i++) {
+            Reserva reserva = this.reservas[i];
+            if (reserva != null) {
+                LocalDate reservaDataInicio = reserva.getDatainicio();
+                LocalDate reservaDataFinal = reserva.getDatafinal();
+
+                if ((reservaDataInicio.isBefore(datafinal) || reservaDataInicio.isEqual(datafinal)) &&
+                        (reservaDataFinal.isAfter(datainicio) || reservaDataFinal.isEqual(datainicio))) {
+                    reservasDentroDoPeriodo[index] = reserva;
+                    index++;
+                }
+            }
+        }
+
+        return reservasDentroDoPeriodo;
+    }
+
+
+
 
     public String toString() {
         String resultado = "\n\nLista de reservas: \n\n";
@@ -144,5 +188,23 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
 
         return Relatorio(reservasDoCliente);
     }
-}
+
+    public float Faturamento(Reserva[] reservasEncontradas){
+        float faturamento = 0;
+
+        for (int i = 0; i < reservasEncontradas.length; i++) {
+            faturamento += reservasEncontradas[i].valorTotal();
+        }
+        return faturamento;
+    }
+
+    public float gerarFaturamentoPorPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException {
+
+        Reserva[] reservasNoPeriodo = buscarReservasPorPeriodo(datainicio, datafinal);
+
+        return Faturamento(reservasNoPeriodo);
+
+        }
+    }
+
 

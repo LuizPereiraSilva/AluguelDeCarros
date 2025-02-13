@@ -108,6 +108,8 @@ public class Teste{
             print(e.getMessage());
         }
 
+
+
     }
 
     public static void print(String line){

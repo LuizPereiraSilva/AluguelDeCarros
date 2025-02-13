@@ -3,6 +3,8 @@ package Interfaces;
 import Exceptions.NenhumaReservaException;
 import Negocio.Basico.Reserva;
 
+import java.time.LocalDate;
+
 public interface RepositorioReservasInterface {
 
     public void adicionarReserva(Reserva reserva);
@@ -15,7 +17,9 @@ public interface RepositorioReservasInterface {
 
     public Reserva[] buscarReservasPorCliente(int idCliente) throws NenhumaReservaException;
 
-    public Reserva[] buscarReservasPorCarro(int idCarro);
+    public Reserva[] buscarReservasPorCarro(int idCarro) throws NenhumaReservaException;
+
+    public Reserva[] buscarReservasPorPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException;
 
     public String gerarRelatorioPorCliente (int idCliente) throws NenhumaReservaException;
 }

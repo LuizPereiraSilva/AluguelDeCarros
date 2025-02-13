@@ -10,10 +10,8 @@ import Negocio.Basico.Carro;
 import Negocio.Basico.Conta;
 
 import Exceptions.DataInvalidaException;
-import Exceptions.Contas.ContaNaoExisteException;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class CadastroReserva {
 
@@ -62,7 +60,7 @@ public class CadastroReserva {
         return this.reservaRepositorio.buscarReserva(idReserva);
     }
 
-    public Reserva[] buscarReservasCarro(int IdCarro) {
+    public Reserva[] buscarReservasPorCarro(int IdCarro) throws NenhumaReservaException {
         return this.reservaRepositorio.buscarReservasPorCarro(IdCarro);
     }
 
@@ -83,6 +81,10 @@ public class CadastroReserva {
         return this.reservaRepositorio.buscarReservasPorCliente(idCliente);
     }
 
+    public  Reserva[] buscarReservasPeriodo(LocalDate dataInicio, LocalDate dataFinal) throws NenhumaReservaException {
+        return this.reservaRepositorio.buscarReservasPorPeriodo(dataInicio,dataFinal);
+    }
+
     public String listarReservas(){
         return reservaRepositorio.toString();
     }
@@ -90,6 +92,11 @@ public class CadastroReserva {
     public String gerarRelatorioCompleto(int IdCliente) throws NenhumaReservaException {
 
         return reservaRepositorio.gerarRelatorioPorCliente(IdCliente);
+    }
+
+    public String gerarFaturamentoPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException {
+        String resultado = "O faturamento no período foi de: " + reservaRepositorio.gerarFaturamentoPorPeriodo(datainicio,datafinal);
+        return resultado;
     }
 
 }

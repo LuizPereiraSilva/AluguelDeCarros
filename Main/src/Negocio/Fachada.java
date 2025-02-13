@@ -107,9 +107,21 @@ public class Fachada {
         return reservas.buscarReservasCliente(idCliente);
     }
 
+    public Reserva[] buscarReservasCarro(int IdCarro) throws NenhumaReservaException {
+        return this.reservas.buscarReservasPorCarro(IdCarro);
+    }
+
+    public Reserva[] buscarReservasPeriodo(LocalDate dataInicio, LocalDate dataFinal) throws NenhumaReservaException {
+        return this.reservas.buscarReservasPeriodo(dataInicio, dataFinal);
+    }
+
     public String listarReservas(){
         return reservas.listarReservas();
     }
 
     public String relatorioReservas(int IdCliente) throws NenhumaReservaException{ return reservas.gerarRelatorioCompleto(IdCliente);}
+
+    public String gerarFaturamentoNoPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException{
+        return reservas.gerarFaturamentoPeriodo(datainicio, datafinal);
+    }
 }
