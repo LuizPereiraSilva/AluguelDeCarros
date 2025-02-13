@@ -3,6 +3,7 @@ import Negocio.Fachada;
 import Exceptions.Contas.ContaJaExisteException;
 import Exceptions.RepositorioCheioException;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Teste{
@@ -62,10 +63,10 @@ public class Teste{
 
         try {
             cadastro.cadastrarReserva(cadastro.buscarCarro(1), cadastro.buscarConta(1),
-                    new Date(2024, 12, 15), new Date(2024, 12, 18), "Débito");
+                    LocalDate.of(2024, 12, 15), LocalDate.of(2024, 12, 18), "Débito");
 
             cadastro.cadastrarReserva(cadastro.buscarCarro(3), cadastro.buscarConta(3),
-                    new Date(2024, 12, 15), new Date(2024, 12, 18), "Débito");
+                     LocalDate.of(2024, 12, 15),  LocalDate.of(2024, 12, 18), "Débito");
         } catch(Exception e){
             print(e.getMessage());
         }
@@ -76,7 +77,7 @@ public class Teste{
 
         try {
             cadastro.cadastrarReserva(cadastro.buscarCarro(3), cadastro.buscarConta(1),
-                    new Date(2024, 12, 18), new Date(2024, 12, 21), "Crédito");
+                    LocalDate.of(2024, 12, 18), LocalDate.of(2024, 12, 21), "Crédito");
         }catch(Exception e){
             print(e.getMessage());
         }
@@ -93,7 +94,7 @@ public class Teste{
 
         try {
             cadastro.atualizarReserva(2, cadastro.buscarCarro(1), cadastro.buscarConta(1),
-                    new Date(2024, 12, 12), new Date(2024, 12, 25),
+                    LocalDate.of(2024, 12, 12), LocalDate.of(2024, 12, 25),
                     "Crédito");
         }catch(Exception e){
             print(e.getMessage());

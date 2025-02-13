@@ -1,19 +1,23 @@
 package Negocio.Basico;
 
 
+import Exceptions.DataInvalidaException;
+
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 
 public class Reserva {
     private Carro carro;
     private int numero;
     private Cliente cliente;
-    private Date datainicio;
-    private Date datafinal;
+    private LocalDate datainicio;
+    private LocalDate datafinal;
     private String formapagamento;
     private boolean pagamento;
 
-    public Reserva(Carro carro, Conta cliente, Date datainicio, Date datafinal, String formapagamento) {
+    public Reserva(Carro carro, Conta cliente, LocalDate datainicio, LocalDate datafinal, String formapagamento) {
         this.carro = carro;
         this.cliente = ((Cliente)cliente);
         this.datainicio = datainicio;
@@ -41,19 +45,19 @@ public class Reserva {
         this.carro = carro;
     }
 
-    public Date getDatainicio() {
+    public LocalDate getDatainicio() {
         return datainicio;
     }
 
-    public void setDatainicio(Date datainicio) {
+    public void setDatainicio(LocalDate datainicio) {
         this.datainicio = datainicio;
     }
 
-    public Date getDatafinal() {
+    public LocalDate getDatafinal() {
         return datafinal;
     }
 
-    public void setDatafinal(Date datafinal) {
+    public void setDatafinal(LocalDate datafinal) {
         this.datafinal = datafinal;
     }
 
@@ -73,24 +77,22 @@ public class Reserva {
         this.pagamento = pagamento;
     }
 
-    public String toString(){
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String resultado = "\nReserva " + this.numero + ": \n\n";
         resultado += this.cliente.toString();
         resultado += this.carro.toString();
-        resultado += " \n\nData de inicio: "+ this.datainicio;
-        resultado += " \nData final: " + this.datafinal;
+        resultado += " \n\nData de inicio: " + this.datainicio.format(formatter);
+        resultado += " \nData final: " + this.datafinal.format(formatter);
         resultado += " \nForma de pagamento: " + this.formapagamento;
         resultado += " \nStatus do pagamento: " + this.pagamento;
 
         return resultado;
     }
 
-    public int daysDate() {
-
-     int diff = this.datafinal.getDate() - this.datainicio.getDate();
-
-     return diff;
-
+    public int diferencaData(){
+        return (int) ChronoUnit.DAYS.between(this.datainicio, this.datafinal);
     }
 
     public String gerarRelatorio() {
@@ -100,7 +102,7 @@ public class Reserva {
         relatorio.append("Carro: ").append(carro.getModelo()).append(" (Placa: ").append(carro.getIdCarro()).append(")\n");
         relatorio.append("Período de aluguel: ").append(datainicio).append(" a ").append(datafinal).append("\n");
         relatorio.append("Valor por dia: ").append(carro.getPreco()).append("\n");
-        relatorio.append("Valor total: ").append(carro.getPreco() * daysDate()).append("\n");
+        relatorio.append("Valor total: ").append(carro.getPreco() * diferencaData()).append("\n");
 
 
 

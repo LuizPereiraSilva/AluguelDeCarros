@@ -9,6 +9,7 @@ import Negocio.Basico.Reserva;
 import Exceptions.LoginJaExisteException;
 import Exceptions.Contas.ContaNaoExisteException;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class NavegarCliente {
@@ -50,7 +51,7 @@ public class NavegarCliente {
         instance = null;
     }
 
-    public void realizarReserva(Carro carro, Date datainicio, Date datafinal, String metodoDePagamento) throws DataInvalidaException {
+    public void realizarReserva(Carro carro, LocalDate datainicio, LocalDate datafinal, String metodoDePagamento) throws DataInvalidaException {
         reservas.cadastrarReserva(carro, this.login, datainicio, datafinal, metodoDePagamento);
     }
 
@@ -58,7 +59,7 @@ public class NavegarCliente {
         reservas.removerReserva(id);
     }
 
-    public void atualizarReserva(int id, Carro carro, Date dataInicio, Date dataFinal,
+    public void atualizarReserva(int id, Carro carro, LocalDate dataInicio, LocalDate dataFinal,
                                  String metodoDePagamento){
 
         reservas.atualizarReserva(id, carro, this.login, dataInicio, dataFinal, metodoDePagamento);

@@ -9,6 +9,7 @@ import Negocio.Basico.Carro;
 import Negocio.Basico.Conta;
 import Negocio.Basico.Reserva;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Fachada {
@@ -84,7 +85,7 @@ public class Fachada {
 
     //Métodos de Reserva
 
-    public void cadastrarReserva(Carro carro, Conta cliente, Date dataInicio, Date dataFinal,
+    public void cadastrarReserva(Carro carro, Conta cliente, LocalDate dataInicio, LocalDate dataFinal,
                                  String formaDePagamento) throws DataInvalidaException{
         reservas.cadastrarReserva(carro, cliente, dataInicio, dataFinal, formaDePagamento);
     }
@@ -97,8 +98,8 @@ public class Fachada {
         return reservas.buscarReserva(idReserva);
     }
 
-    public void atualizarReserva(int idReserva, Carro carro, Conta cliente, Date dataInicio,
-                                 Date dataFinal, String formaDePagamento){
+    public void atualizarReserva(int idReserva, Carro carro, Conta cliente, LocalDate dataInicio,
+                                 LocalDate dataFinal, String formaDePagamento){
         reservas.atualizarReserva(idReserva, carro, cliente, dataInicio, dataFinal, formaDePagamento);
     }
 

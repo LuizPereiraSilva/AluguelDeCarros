@@ -12,6 +12,7 @@ import Negocio.Basico.Conta;
 import Exceptions.DataInvalidaException;
 import Exceptions.Contas.ContaNaoExisteException;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CadastroReserva {
@@ -37,12 +38,12 @@ public class CadastroReserva {
         return instance;
     }
 
-    public void cadastrarReserva(Carro carro, Conta cliente, Date datainicio, Date datafinal,
+    public void cadastrarReserva(Carro carro, Conta cliente, LocalDate datainicio, LocalDate datafinal,
                                  String formaDePagamento) throws DataInvalidaException {
 
         Carro auxCarro = this.carroRepositorio.buscarCarroPorId(carro.getIdCarro());
 
-        if(auxCarro != null && datafinal.after(datainicio)){
+        if(auxCarro != null && datafinal.isAfter(datainicio)){
             Reserva reserva = new Reserva(carro, cliente, datainicio, datafinal, formaDePagamento);
             reserva.setNumero(ultimoIdReserva + 1);
             ultimoIdReserva++;
@@ -65,8 +66,8 @@ public class CadastroReserva {
         return this.reservaRepositorio.buscarReservasPorCarro(IdCarro);
     }
 
-    public void atualizarReserva(int idReserva, Carro carro, Conta cliente, Date dataInicio,
-                                 Date dataFinal, String formaDePagamento){
+    public void atualizarReserva(int idReserva, Carro carro, Conta cliente, LocalDate dataInicio,
+                                 LocalDate dataFinal, String formaDePagamento){
 
         Carro auxCarro = this.carroRepositorio.buscarCarroPorId(carro.getIdCarro());
         Reserva auxReserva = this.reservaRepositorio.buscarReserva(idReserva);
