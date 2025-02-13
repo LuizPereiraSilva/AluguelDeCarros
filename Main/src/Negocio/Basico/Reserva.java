@@ -91,8 +91,9 @@ public class Reserva {
         return resultado;
     }
 
-    public int diferencaData(){
-        return (int) ChronoUnit.DAYS.between(this.datainicio, this.datafinal);
+    public float valorTotal(){
+       float DiferencaData = ChronoUnit.DAYS.between(this.datainicio, this.datafinal);
+       return DiferencaData * this.carro.getPreco();
     }
 
     public String gerarRelatorio() {
@@ -102,7 +103,7 @@ public class Reserva {
         relatorio.append("Carro: ").append(carro.getModelo()).append(" (Placa: ").append(carro.getIdCarro()).append(")\n");
         relatorio.append("Período de aluguel: ").append(datainicio).append(" a ").append(datafinal).append("\n");
         relatorio.append("Valor por dia: ").append(carro.getPreco()).append("\n");
-        relatorio.append("Valor total: ").append(carro.getPreco() * diferencaData()).append("\n");
+        relatorio.append("Valor total: ").append(valorTotal()).append("\n");
 
 
 

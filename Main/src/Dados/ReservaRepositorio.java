@@ -86,9 +86,8 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
                 auxContador++;
             }
         }
-        if(auxContador == 0) {
-            throw new NenhumaReservaException();
-        }
+        if(auxContador == 0) { throw new NenhumaReservaException();}
+
         Reserva[] retorno = new Reserva[auxContador];
 
         for (int i = 0; i < auxContador; i++) {
