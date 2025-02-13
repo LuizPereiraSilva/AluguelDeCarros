@@ -94,8 +94,8 @@ public class Reserva {
     }
 
     public String gerarRelatorio() {
-        StringBuilder relatorio = new StringBuilder();
-        relatorio.append("Número da reserva: ").append(numero).append("\n");
+        StringBuilder relatorio = new StringBuilder("Relatório da reserva: ");
+        relatorio.append("\n\n").append("Número da reserva: ").append(numero).append("\n");
         relatorio.append("Cliente: ").append(cliente.getNome()).append(" (CPF: ").append(cliente.getCpf()).append(")\n");
         relatorio.append("Carro: ").append(carro.getModelo()).append(" (Placa: ").append(carro.getIdCarro()).append(")\n");
         relatorio.append("Período de aluguel: ").append(datainicio).append(" a ").append(datafinal).append("\n");

@@ -1,5 +1,6 @@
 package Interfaces;
 
+import Exceptions.NenhumaReservaException;
 import Negocio.Basico.Reserva;
 
 public interface RepositorioReservasInterface {
@@ -12,5 +13,9 @@ public interface RepositorioReservasInterface {
 
     public void atualizarReserva(Reserva reservaAtualizada);
 
-    public Reserva[] buscarReservasPorCliente(int idCliente);
+    public Reserva[] buscarReservasPorCliente(int idCliente) throws NenhumaReservaException;
+
+    public Reserva[] buscarReservasPorCarro(int idCarro);
+
+    public String gerarRelatorioPorCliente (int idCliente) throws NenhumaReservaException;
 }

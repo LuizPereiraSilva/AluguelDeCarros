@@ -3,6 +3,7 @@ package Negocio;
 import Exceptions.DataInvalidaException;
 import Exceptions.Contas.ContaJaExisteException;
 import Exceptions.Contas.ContaNaoExisteException;
+import Exceptions.NenhumaReservaException;
 import Exceptions.RepositorioCheioException;
 import Negocio.Basico.Carro;
 import Negocio.Basico.Conta;
@@ -101,7 +102,7 @@ public class Fachada {
         reservas.atualizarReserva(idReserva, carro, cliente, dataInicio, dataFinal, formaDePagamento);
     }
 
-    public Reserva[] buscarReservasCliente(int idCliente){
+    public Reserva[] buscarReservasCliente(int idCliente) throws NenhumaReservaException {
         return reservas.buscarReservasCliente(idCliente);
     }
 
@@ -109,5 +110,5 @@ public class Fachada {
         return reservas.listarReservas();
     }
 
-    public String relatorioReservas(){ return reservas.gerarRelatorioCompleto();}
+    public String relatorioReservas(int IdCliente) throws NenhumaReservaException{ return reservas.gerarRelatorioCompleto(IdCliente);}
 }

@@ -100,8 +100,13 @@ public class Teste{
         }
 
         print(cadastro.listarReservas());
+        try {
+            print(cadastro.relatorioReservas(2));
 
-        print(cadastro.relatorioReservas());
+        }catch(Exception e){
+            print(e.getMessage());
+        }
+
     }
 
     public static void print(String line){

@@ -1,6 +1,7 @@
 package Negocio;
 
 import Exceptions.DataInvalidaException;
+import Exceptions.NenhumaReservaException;
 import Negocio.Basico.Cliente;
 import Negocio.Basico.Carro;
 import Negocio.Basico.Reserva;
@@ -63,7 +64,7 @@ public class NavegarCliente {
         reservas.atualizarReserva(id, carro, this.login, dataInicio, dataFinal, metodoDePagamento);
     }
 
-    public Reserva[] getReservas(){
+    public Reserva[] getReservas() throws NenhumaReservaException {
         return reservas.buscarReservasCliente(this.login.getIdConta());
     }
 }

@@ -4,6 +4,7 @@ import Dados.ReservaRepositorio;
 import Dados.CarroRepositorio;
 import Dados.ContasRepositorio;
 
+import Exceptions.NenhumaReservaException;
 import Negocio.Basico.Reserva;
 import Negocio.Basico.Carro;
 import Negocio.Basico.Conta;
@@ -77,7 +78,7 @@ public class CadastroReserva {
         }
     }
 
-    public Reserva[] buscarReservasCliente(int idCliente){
+    public Reserva[] buscarReservasCliente(int idCliente) throws NenhumaReservaException {
         return this.reservaRepositorio.buscarReservasPorCliente(idCliente);
     }
 
@@ -85,12 +86,9 @@ public class CadastroReserva {
         return reservaRepositorio.toString();
     }
 
-    public String gerarRelatorioCompleto() {
-        StringBuilder relatorioCompleto = new StringBuilder("Relatório de Reservas:\n\n");
-        for (int i = 0; i < this.ultimoIdReserva; i++) {
-            relatorioCompleto.append(reservaRepositorio.Relatorio()).append("\n\n");
-        }
-        return relatorioCompleto.toString();
+    public String gerarRelatorioCompleto(int IdCliente) throws NenhumaReservaException {
+
+        return reservaRepositorio.gerarRelatorioPorCliente(IdCliente);
     }
 
 }

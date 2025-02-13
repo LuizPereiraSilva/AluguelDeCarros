@@ -5,6 +5,7 @@ import Negocio.Basico.Reserva;
 import Negocio.Basico.Conta;
 import Negocio.Basico.Administrador;
 import Interfaces.RepositorioReservasInterface;
+import Exceptions.NenhumaReservaException;
 
 public class ReservaRepositorio implements RepositorioReservasInterface {
 
@@ -75,14 +76,17 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         }
     }
 
-    public Reserva[] buscarReservasPorCliente(int idCliente) {
+    public Reserva[] buscarReservasPorCliente(int idCliente) throws NenhumaReservaException {
         Reserva[] auxReservas = new Reserva[this.tamanho];
         int auxContador = 0;
 
         for (int i = 0; i < this.tamanho; i++) {
-            if (this.reservas[i].getCliente().getIdConta() == idCliente) {
+            if (this.reservas[i] != null && this.reservas[i].getCliente().getIdConta() == idCliente) {
                 auxReservas[auxContador] = this.reservas[i];
                 auxContador++;
+            }
+            else {
+                throw new NenhumaReservaException();
             }
         }
 
@@ -124,13 +128,23 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         return resultado;
     }
 
-    public String Relatorio() {
-
+    public String Relatorio(Reserva[] reservasFiltradas) {
         String relatoriozinho = "";
-        for (int i = 0; i < contador; i++) {
-            relatoriozinho = this.reservas[i].gerarRelatorio();
+
+
+        for (int i = 0; i < reservasFiltradas.length; i++) {
+
+            relatoriozinho = reservasFiltradas[i].gerarRelatorio() + "\n";
         }
+
         return relatoriozinho;
+    }
+
+    public String gerarRelatorioPorCliente(int idCliente) throws NenhumaReservaException {
+
+        Reserva[] reservasDoCliente = buscarReservasPorCliente(idCliente);
+
+        return Relatorio(reservasDoCliente);
     }
 }
 
