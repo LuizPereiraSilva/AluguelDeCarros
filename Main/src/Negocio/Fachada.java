@@ -103,15 +103,15 @@ public class Fachada {
         reservas.atualizarReserva(idReserva, carro, cliente, dataInicio, dataFinal, formaDePagamento);
     }
 
-    public Reserva[] buscarReservasCliente(int idCliente) throws NenhumaReservaException {
+    public String buscarReservasCliente(int idCliente) throws NenhumaReservaException {
         return reservas.buscarReservasCliente(idCliente);
     }
 
-    public Reserva[] buscarReservasCarro(int IdCarro) throws NenhumaReservaException {
+    public String buscarReservasCarro(int IdCarro) throws NenhumaReservaException {
         return this.reservas.buscarReservasPorCarro(IdCarro);
     }
 
-    public Reserva[] buscarReservasPeriodo(LocalDate dataInicio, LocalDate dataFinal) throws NenhumaReservaException {
+    public String buscarReservasPeriodo(LocalDate dataInicio, LocalDate dataFinal) throws NenhumaReservaException {
         return this.reservas.buscarReservasPeriodo(dataInicio, dataFinal);
     }
 

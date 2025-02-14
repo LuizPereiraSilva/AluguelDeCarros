@@ -65,7 +65,7 @@ public class NavegarCliente {
         reservas.atualizarReserva(id, carro, this.login, dataInicio, dataFinal, metodoDePagamento);
     }
 
-    public Reserva[] getReservas() throws NenhumaReservaException {
+    public String getReservas() throws NenhumaReservaException {
         return reservas.buscarReservasCliente(this.login.getIdConta());
     }
 }

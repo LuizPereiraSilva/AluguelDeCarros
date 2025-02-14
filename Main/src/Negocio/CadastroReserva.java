@@ -13,6 +13,7 @@ import Exceptions.DataInvalidaException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class CadastroReserva {
 
@@ -61,10 +62,6 @@ public class CadastroReserva {
         return this.reservaRepositorio.buscarReserva(idReserva);
     }
 
-    public Reserva[] buscarReservasPorCarro(int IdCarro) throws NenhumaReservaException {
-        return this.reservaRepositorio.buscarReservasPorCarro(IdCarro);
-    }
-
     public void atualizarReserva(int idReserva, Carro carro, Conta cliente, LocalDate dataInicio,
                                  LocalDate dataFinal, String formaDePagamento){
 
@@ -78,12 +75,22 @@ public class CadastroReserva {
         }
     }
 
-    public Reserva[] buscarReservasCliente(int idCliente) throws NenhumaReservaException {
-        return this.reservaRepositorio.buscarReservasPorCliente(idCliente);
+    public String buscarReservasCliente(int idCliente) throws NenhumaReservaException {
+       Reserva[] resultado = this.reservaRepositorio.buscarReservasPorCliente(idCliente);
+
+        return "\n Reservas encontradas para esse Id: " + Arrays.toString(resultado);
     }
 
-    public  Reserva[] buscarReservasPeriodo(LocalDate dataInicio, LocalDate dataFinal) throws NenhumaReservaException {
-        return this.reservaRepositorio.buscarReservasPorPeriodo(dataInicio,dataFinal);
+    public String buscarReservasPorCarro(int IdCarro) throws NenhumaReservaException {
+        Reserva[] resultado = this.reservaRepositorio.buscarReservasPorCarro(IdCarro);
+
+        return "\n Reservas encontradas para esse carro: " + Arrays.toString(resultado);
+    }
+
+    public String buscarReservasPeriodo(LocalDate dataInicio, LocalDate dataFinal) throws NenhumaReservaException {
+        Reserva[] resultado = this.reservaRepositorio.buscarReservasPorPeriodo(dataInicio, dataFinal);
+
+        return "\n Reservas encontradas para esse periodo: " + Arrays.toString(resultado);
     }
 
     public String toString(){

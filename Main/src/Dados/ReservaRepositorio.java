@@ -104,7 +104,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         int auxj = 0;
 
         for (int i = 0; i < tamanho; i++) {
-            if (this.reservas[i].getCarro().getIdCarro() == IdCarro) {
+            if (this.reservas[i] != null && this.reservas[i].getCarro().getIdCarro() == IdCarro) {
                 resultado[auxj] = this.reservas[i];
             }
         }
@@ -211,6 +211,15 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
             throw new DataInvalidaException();
 
         }
+    }
+
+    public String formatarArray(Reserva[] reservas) {
+
+        String resultado = "";
+        for (Reserva reserva : reservas) {
+            resultado += reserva.toString() + "\n";
+        }
+        return resultado;
     }
 
 }

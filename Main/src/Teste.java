@@ -117,6 +117,24 @@ public class Teste{
             print(e.getMessage());
         }
 
+        try{
+            print(cadastro.buscarReservasCliente(1));
+        }catch(Exception e){
+            print(e.getMessage());
+        }
+
+        try {
+            print(cadastro.buscarReservasCarro(1));
+        }catch(Exception e){
+            print(e.getMessage());
+        }
+
+        try {
+            print(cadastro.buscarReservasPeriodo(LocalDate.of(2024,12,12), LocalDate.of(2024,12,25)));
+        }catch(Exception e){
+            print(e.getMessage());
+        }
+
 
 
 
