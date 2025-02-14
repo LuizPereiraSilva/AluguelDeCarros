@@ -1,5 +1,6 @@
 package Dados;
 
+import Exceptions.DataInvalidaException;
 import Negocio.Basico.Reserva;
 import Interfaces.RepositorioReservasInterface;
 import Exceptions.NenhumaReservaException;
@@ -85,7 +86,9 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
                 auxContador++;
             }
         }
-        if(auxContador == 0) { throw new NenhumaReservaException();}
+        if (auxContador == 0) {
+            throw new NenhumaReservaException();
+        }
 
         Reserva[] retorno = new Reserva[auxContador];
 
@@ -105,7 +108,9 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
                 resultado[auxj] = this.reservas[i];
             }
         }
-        if(auxj == 0) { throw new NenhumaReservaException();}
+        if (auxj == 0) {
+            throw new NenhumaReservaException();
+        }
 
         Reserva[] resultado2 = new Reserva[auxj + 1];
 
@@ -158,8 +163,6 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
     }
 
 
-
-
     public String toString() {
         String resultado = "\n\nLista de reservas: \n\n";
 
@@ -189,7 +192,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         return Relatorio(reservasDoCliente);
     }
 
-    public float Faturamento(Reserva[] reservasEncontradas){
+    public float Faturamento(Reserva[] reservasEncontradas) {
         float faturamento = 0;
 
         for (int i = 0; i < reservasEncontradas.length; i++) {
@@ -198,13 +201,19 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         return faturamento;
     }
 
-    public float gerarFaturamentoPorPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException {
+    public float gerarFaturamentoPorPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException, DataInvalidaException {
+        if (datafinal.isAfter(datainicio)) {
+            Reserva[] reservasNoPeriodo = buscarReservasPorPeriodo(datainicio, datafinal);
 
-        Reserva[] reservasNoPeriodo = buscarReservasPorPeriodo(datainicio, datafinal);
 
-        return Faturamento(reservasNoPeriodo);
+            return Faturamento(reservasNoPeriodo);
+        } else {
+            throw new DataInvalidaException();
 
         }
     }
+
+}
+
 
 

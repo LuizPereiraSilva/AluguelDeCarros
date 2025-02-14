@@ -1,5 +1,6 @@
 package Interfaces;
 
+import Exceptions.DataInvalidaException;
 import Exceptions.NenhumaReservaException;
 import Negocio.Basico.Reserva;
 
@@ -22,4 +23,8 @@ public interface RepositorioReservasInterface {
     public Reserva[] buscarReservasPorPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException;
 
     public String gerarRelatorioPorCliente (int idCliente) throws NenhumaReservaException;
+
+    public float gerarFaturamentoPorPeriodo (LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException, DataInvalidaException;
+
 }
+

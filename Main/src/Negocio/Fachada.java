@@ -116,12 +116,12 @@ public class Fachada {
     }
 
     public String listarReservas(){
-        return reservas.listarReservas();
+        return reservas.toString();
     }
 
     public String relatorioReservas(int IdCliente) throws NenhumaReservaException{ return reservas.gerarRelatorioCompleto(IdCliente);}
 
-    public String gerarFaturamentoNoPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException{
+    public String gerarFaturamentoNoPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException, DataInvalidaException{
         return reservas.gerarFaturamentoPeriodo(datainicio, datafinal);
     }
 }

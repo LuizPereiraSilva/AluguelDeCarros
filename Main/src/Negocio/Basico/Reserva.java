@@ -98,16 +98,18 @@ public class Reserva {
 
     public String gerarRelatorio() {
         StringBuilder relatorio = new StringBuilder("Relatório da reserva: ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         relatorio.append("\n\n").append("Número da reserva: ").append(numero).append("\n");
         relatorio.append("Cliente: ").append(cliente.getNome()).append(" (CPF: ").append(cliente.getCpf()).append(")\n");
         relatorio.append("Carro: ").append(carro.getModelo()).append(" (Placa: ").append(carro.getIdCarro()).append(")\n");
-        relatorio.append("Período de aluguel: ").append(datainicio).append(" a ").append(datafinal).append("\n");
+        relatorio.append("Período de aluguel: ").append(datainicio.format(formatter)).append(" a ").append(datafinal.format(formatter)).append("\n");
         relatorio.append("Valor por dia: ").append(carro.getPreco()).append("\n");
-        relatorio.append("Valor total: ").append(valorTotal()).append("\n");
+        relatorio.append("Valor total: R$ ").append(valorTotal()).append("\n");
 
 
 
         return relatorio.toString();
     }
+
 
 }

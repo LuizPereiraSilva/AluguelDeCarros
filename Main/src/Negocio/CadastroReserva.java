@@ -12,6 +12,7 @@ import Negocio.Basico.Conta;
 import Exceptions.DataInvalidaException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class CadastroReserva {
 
@@ -85,7 +86,7 @@ public class CadastroReserva {
         return this.reservaRepositorio.buscarReservasPorPeriodo(dataInicio,dataFinal);
     }
 
-    public String listarReservas(){
+    public String toString(){
         return reservaRepositorio.toString();
     }
 
@@ -94,8 +95,9 @@ public class CadastroReserva {
         return reservaRepositorio.gerarRelatorioPorCliente(IdCliente);
     }
 
-    public String gerarFaturamentoPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException {
-        String resultado = "O faturamento no período de " + datainicio + " a " + datafinal + " foi de: RS" + reservaRepositorio.gerarFaturamentoPorPeriodo(datainicio,datafinal);
+    public String gerarFaturamentoPeriodo(LocalDate datainicio, LocalDate datafinal) throws NenhumaReservaException, DataInvalidaException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String resultado = "Faturamento com reservas no período de " + datainicio.format(formatter) + " a " + datafinal.format(formatter) + " foi: R$ " + reservaRepositorio.gerarFaturamentoPorPeriodo(datainicio,datafinal);
         return resultado;
     }
 
