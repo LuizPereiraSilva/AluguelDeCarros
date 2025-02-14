@@ -100,22 +100,23 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
     }
 
     public Reserva[] buscarReservasPorCarro(int IdCarro) throws NenhumaReservaException {
-        Reserva[] resultado = new Reserva[tamanho];
+        Reserva[] resultado = new Reserva[this.tamanho];
         int auxj = 0;
 
-        for (int i = 0; i < tamanho; i++) {
+        for (int i = 0; i < this.tamanho; i++) {
             if (this.reservas[i] != null && this.reservas[i].getCarro().getIdCarro() == IdCarro) {
                 resultado[auxj] = this.reservas[i];
+                auxj++;
             }
         }
         if (auxj == 0) {
             throw new NenhumaReservaException();
         }
 
-        Reserva[] resultado2 = new Reserva[auxj + 1];
+        Reserva[] resultado2 = new Reserva[auxj];
 
-        for (int i = 0; i < resultado2.length; i++) {
-            resultado2[2] = resultado[i];
+        for (int i = 0; i < auxj; i++) {
+            resultado2[i] = resultado[i];
         }
 
         return resultado2;
@@ -211,15 +212,6 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
             throw new DataInvalidaException();
 
         }
-    }
-
-    public String formatarArray(Reserva[] reservas) {
-
-        String resultado = "";
-        for (Reserva reserva : reservas) {
-            resultado += reserva.toString() + "\n";
-        }
-        return resultado;
     }
 
 }

@@ -117,17 +117,27 @@ public class Teste{
             print(e.getMessage());
         }
 
+        print("\n -----------------------------------------");
+        print("Filtrando as buscas de reservas: \n");
+
+        print("Por cliente: \n");
+
         try{
             print(cadastro.buscarReservasCliente(1));
         }catch(Exception e){
             print(e.getMessage());
         }
 
+        print("\n -----------------------------------------");
+        print("\n Por carro: \n");
+
         try {
             print(cadastro.buscarReservasCarro(1));
         }catch(Exception e){
             print(e.getMessage());
         }
+        print("\n -----------------------------------------");
+        print("\n Por periodo: \n");
 
         try {
             print(cadastro.buscarReservasPeriodo(LocalDate.of(2024,12,12), LocalDate.of(2024,12,25)));

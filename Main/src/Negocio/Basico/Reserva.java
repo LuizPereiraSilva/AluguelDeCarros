@@ -97,7 +97,7 @@ public class Reserva {
     }
 
     public String gerarRelatorio() {
-        StringBuilder relatorio = new StringBuilder("Relatório da reserva: ");
+        StringBuilder relatorio = new StringBuilder("Relatório de reservas do cliente: " + this.cliente.getNome());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         relatorio.append("\n\n").append("Número da reserva: ").append(numero).append("\n");
         relatorio.append("Cliente: ").append(cliente.getNome()).append(" (CPF: ").append(cliente.getCpf()).append(")\n");
