@@ -4,7 +4,8 @@ import Dados.ReservaRepositorio;
 import Dados.CarroRepositorio;
 import Dados.ContasRepositorio;
 
-import Exceptions.NenhumaReservaException;
+import Exceptions.Carros.CarroNaoExisteException;
+import Exceptions.Reservas.NenhumaReservaException;
 import Negocio.Basico.Reserva;
 import Negocio.Basico.Carro;
 import Negocio.Basico.Conta;
@@ -30,7 +31,7 @@ public class CadastroReserva {
         this.carroRepositorio = CarroRepositorio.getInstance();
     }
 
-    protected static CadastroReserva getInstance(){
+    public static CadastroReserva getInstance(){
         if(instance == null){
             instance = new CadastroReserva();
         }
@@ -39,7 +40,7 @@ public class CadastroReserva {
     }
 
     public void cadastrarReserva(Carro carro, Conta cliente, LocalDate datainicio, LocalDate datafinal,
-                                 String formaDePagamento) throws DataInvalidaException {
+                                 String formaDePagamento) throws DataInvalidaException, CarroNaoExisteException {
 
         Carro auxCarro = this.carroRepositorio.buscarCarroPorId(carro.getIdCarro());
 
@@ -63,7 +64,7 @@ public class CadastroReserva {
     }
 
     public void atualizarReserva(int idReserva, Carro carro, Conta cliente, LocalDate dataInicio,
-                                 LocalDate dataFinal, String formaDePagamento){
+                                 LocalDate dataFinal, String formaDePagamento) throws CarroNaoExisteException{
 
         Carro auxCarro = this.carroRepositorio.buscarCarroPorId(carro.getIdCarro());
         Reserva auxReserva = this.reservaRepositorio.buscarReserva(idReserva);

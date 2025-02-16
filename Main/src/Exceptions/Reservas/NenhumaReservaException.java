@@ -1,4 +1,4 @@
-package Exceptions;
+package Exceptions.Reservas;
 
 
 public class NenhumaReservaException extends Exception {

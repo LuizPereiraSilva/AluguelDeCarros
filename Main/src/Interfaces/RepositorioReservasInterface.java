@@ -1,7 +1,7 @@
 package Interfaces;
 
 import Exceptions.DataInvalidaException;
-import Exceptions.NenhumaReservaException;
+import Exceptions.Reservas.NenhumaReservaException;
 import Negocio.Basico.Reserva;
 
 import java.time.LocalDate;

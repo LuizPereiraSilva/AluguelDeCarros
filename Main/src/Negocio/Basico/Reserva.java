@@ -2,13 +2,14 @@ package Negocio.Basico;
 
 
 import Exceptions.DataInvalidaException;
+import java.io.Serializable;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 
-public class Reserva {
+public class Reserva implements Serializable{
     private Carro carro;
     private int numero;
     private Cliente cliente;

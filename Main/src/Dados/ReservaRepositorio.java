@@ -3,21 +3,30 @@ package Dados;
 import Exceptions.DataInvalidaException;
 import Negocio.Basico.Reserva;
 import Interfaces.RepositorioReservasInterface;
-import Exceptions.NenhumaReservaException;
+import Exceptions.Reservas.NenhumaReservaException;
+
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
 
 import java.time.LocalDate;
 
 public class ReservaRepositorio implements RepositorioReservasInterface {
 
     private Reserva[] reservas;
-    private int contador;
+    private int reservasIndex;
     private int tamanho;
+    private String arquivo;
     private static ReservaRepositorio instance;
 
     private ReservaRepositorio(int tamanho) {
         this.reservas = new Reserva[tamanho];
-        this.contador = 0;
+        this.reservasIndex = 0;
         this.tamanho = tamanho;
+        this.arquivo = "ReservaRepositorio.bin";
+
+        this.lerArquivo();
     }
 
     public static ReservaRepositorio getInstance() {
@@ -27,16 +36,68 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         return instance;
     }
 
+    public int getMaiorId(){
+        int auxId = 0;
+
+        for(int i = 0; i < reservasIndex; i++){
+            if(reservas[i].getNumero() > auxId){
+                auxId = reservas[i].getNumero();
+            }
+        }
+
+        return auxId;
+    }
+
+    public void lerArquivo(){
+        Reserva[] auxReservas = new Reserva[tamanho];
+        int auxIndex = 0;
+        Object o = null;
+
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo));
+            for(int i = 0; i < tamanho; i++){
+                if((o = ois.readObject()) != null){
+                    auxReservas[auxIndex] = (Reserva) o;
+                    auxIndex++;
+                }else{
+                    break;
+                }
+            }
+
+            ois.close();
+        } catch(Exception e){
+
+        }
+
+        reservas = auxReservas;
+        reservasIndex = auxIndex;
+    }
+
+    public void escreverArquivo(){
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo));
+
+            for(int i = 0; i < reservasIndex; i++){
+                oos.writeObject(reservas[i]);
+            }
+
+            oos.close();
+        } catch(Exception e){
+
+        }
+    }
 
     public void adicionarReserva(Reserva reserva) {
-        if (contador < this.tamanho) {
-            this.reservas[contador] = reserva;
+        if (reservasIndex < this.tamanho) {
+            this.reservas[reservasIndex] = reserva;
         }
-        contador++;
+        reservasIndex++;
+
+        this.escreverArquivo();
     }
 
     private int buscarIndex(int numero) {
-        for (int i = 0; i < this.contador; i++) {
+        for (int i = 0; i < this.reservasIndex; i++) {
             if (this.reservas[i].getNumero() == numero) {
                 return i;
             }
@@ -48,8 +109,8 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         int aux = this.buscarIndex(idReserva);
 
         if (aux != -1) {
-            for (int i = aux; i < contador; i++) {
-                if (i < contador - 1) {
+            for (int i = aux; i < reservasIndex; i++) {
+                if (i < reservasIndex - 1) {
                     this.reservas[i] = this.reservas[i + 1];
                 } else {
                     this.reservas[i] = null;
@@ -57,7 +118,8 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
             }
         }
 
-        contador--;
+        reservasIndex--;
+        this.escreverArquivo();
     }
 
     public Reserva buscarReserva(int numero) {
@@ -74,6 +136,8 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         if (aux != -1) {
             this.reservas[aux] = reservaAtualizada;
         }
+
+        this.escreverArquivo();
     }
 
     public Reserva[] buscarReservasPorCliente(int idCliente) throws NenhumaReservaException {
@@ -126,7 +190,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
 
         int encontradas = 0;
 
-        for (int i = 0; i < this.contador; i++) {
+        for (int i = 0; i < this.reservasIndex; i++) {
             Reserva reserva = this.reservas[i];
             if (reserva != null) {
                 LocalDate reservaDataInicio = reserva.getDatainicio();
@@ -146,7 +210,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
         Reserva[] reservasDentroDoPeriodo = new Reserva[encontradas];
         int index = 0;
 
-        for (int i = 0; i < this.contador; i++) {
+        for (int i = 0; i < this.reservasIndex; i++) {
             Reserva reserva = this.reservas[i];
             if (reserva != null) {
                 LocalDate reservaDataInicio = reserva.getDatainicio();
@@ -167,7 +231,7 @@ public class ReservaRepositorio implements RepositorioReservasInterface {
     public String toString() {
         String resultado = "\n\nLista de reservas: \n\n";
 
-        for (int i = 0; i < contador; i++) {
+        for (int i = 0; i < reservasIndex; i++) {
             resultado += reservas[i].toString() + "\n";
         }
 

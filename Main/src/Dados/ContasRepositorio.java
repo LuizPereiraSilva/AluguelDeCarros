@@ -1,21 +1,33 @@
 package Dados;
+
 import Negocio.Basico.Conta;
+
 import Interfaces.RepositorioContasInterface;
+
 import Exceptions.RepositorioCheioException;
 import Exceptions.Contas.ContaNaoExisteException;
 import Exceptions.Contas.ContaJaExisteException;
+
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
 
 public class ContasRepositorio implements RepositorioContasInterface{
 
     private Conta[] contas;
     private int contasIndex;
     private int tamanho;
+    private String arquivo;
     private static ContasRepositorio repositorio;
 
     private ContasRepositorio(int tamanho){
         this.contas = new Conta[tamanho];
         this.tamanho = tamanho;
         this.contasIndex = 0;
+        this.arquivo = "ContasRepositorio.bin";
+
+        this.lerArquivo();
     }
 
     public static ContasRepositorio getInstance(){
@@ -25,12 +37,64 @@ public class ContasRepositorio implements RepositorioContasInterface{
         return repositorio;
     }
 
+    public int getMaiorId(){
+        int auxInt = 0;
+        for(int i = 0; i < this.contasIndex; i++){
+            if(contas[i].getIdConta() > auxInt){
+                auxInt = contas[i].getIdConta();
+            }
+        }
+
+        return auxInt;
+    }
+
+    public void lerArquivo(){
+        Conta[] auxcontas = new Conta[tamanho];
+        Object o = null;
+        int contasIndex = 0;
+
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo));
+
+            for(int i = 0; i < tamanho; i++){
+                if((o = ois.readObject()) != null){
+                    auxcontas[i] = (Conta) o;
+                    contasIndex++;
+                } else{
+                    break;
+                }
+            }
+
+            ois.close();
+        } catch(Exception e){
+
+        }
+
+        this.contas = auxcontas;
+        this.contasIndex = contasIndex;
+    }
+
+    public void escreverArquivo(){
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo));
+
+            for(int i = 0; i < contasIndex; i++){
+                oos.writeObject(this.contas[i]);
+            }
+
+            oos.close();
+        } catch(Exception e){
+
+        }
+    }
+
     public void adicionarConta(Conta conta) throws RepositorioCheioException, ContaJaExisteException{
         this.buscarCpfConta(conta.getCpf());
 
         if(contasIndex < this.tamanho) {
             this.contas[this.contasIndex] = conta;
             this.contasIndex++;
+            this.escreverArquivo();
         } else{
             throw new RepositorioCheioException();
         }
@@ -59,15 +123,16 @@ public class ContasRepositorio implements RepositorioContasInterface{
         int aux = this.buscarIndexConta(idConta);
 
 
-        for (int i = 0; i + aux < 10; i++) {
-            if (i + aux < 9) {
-                contas[i + aux] = this.contas[i + aux + 1];
+        for (int i = aux; i + aux < tamanho; i++) {
+            if (aux + 1 < tamanho) {
+                contas[aux] = this.contas[aux+1];
             } else {
-                contas[i + aux] = null;
+                contas[aux] = null;
             }
         }
 
         this.contasIndex--;
+        this.escreverArquivo();
 
     }
 
@@ -81,6 +146,7 @@ public class ContasRepositorio implements RepositorioContasInterface{
         int aux = this.buscarIndexConta(conta.getIdConta());
 
         contas[aux] = conta;
+        this.escreverArquivo();
     }
 
     public String toString(){

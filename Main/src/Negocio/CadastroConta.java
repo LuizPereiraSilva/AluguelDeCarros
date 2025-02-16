@@ -17,10 +17,10 @@ public class CadastroConta {
 
     private CadastroConta(){
         this.repositorio = ContasRepositorio.getInstance();
-        this.ultimoId = 0;
+        this.ultimoId = repositorio.getMaiorId();
     }
 
-    protected static CadastroConta getInstance(){
+    public static CadastroConta getInstance(){
         if(instancia == null){
             instancia = new CadastroConta();
         }
@@ -69,6 +69,10 @@ public class CadastroConta {
                 repositorio.atualizarConta(cliente);
             }
         }
+    }
+
+    public int getUltimoId(){
+        return this.ultimoId;
     }
 
     public String listarContas(){

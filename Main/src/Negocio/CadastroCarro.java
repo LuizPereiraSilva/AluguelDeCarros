@@ -2,6 +2,8 @@ package Negocio;
 
 import Dados.CarroRepositorio;
 
+import Exceptions.Carros.CarroNaoExisteException;
+import Exceptions.RepositorioCheioException;
 import Negocio.Basico.Carro;
 
 public class CadastroCarro {
@@ -11,11 +13,11 @@ public class CadastroCarro {
     private static CadastroCarro instance;
 
     private CadastroCarro(){
-        this.ultimoId = 0;
         this.repositorio = CarroRepositorio.getInstance();
+        this.ultimoId = repositorio.getMaiorIdCarro();
     }
 
-    protected static CadastroCarro getInstance(){
+    public static CadastroCarro getInstance(){
         if (instance == null) {
             instance = new CadastroCarro();
         }
@@ -23,7 +25,7 @@ public class CadastroCarro {
         return instance;
     }
 
-    public void cadastrarCarro(int modelo, float preco, String caracteristicas){
+    public void cadastrarCarro(int modelo, float preco, String caracteristicas) throws RepositorioCheioException {
         if(0 < modelo && modelo < 5 && preco > 0){
             Carro carro = new Carro(modelo, this.ultimoId +1, preco, caracteristicas);
             this.repositorio.adicionarCarro(carro);
@@ -31,15 +33,15 @@ public class CadastroCarro {
         }
     }
 
-    public void removerCarro(int id){
+    public void removerCarro(int id) throws CarroNaoExisteException {
         this.repositorio.removerCarro(id);
     }
 
-    public Carro buscarCarro(int id){
+    public Carro buscarCarro(int id) throws CarroNaoExisteException{
         return this.repositorio.buscarCarroPorId(id);
     }
 
-    public void atualizarPreco(int id, float novoPreco){
+    public void atualizarPreco(int id, float novoPreco) throws CarroNaoExisteException{
         if(novoPreco > 0) {
             this.repositorio.atualizarPreco(id, novoPreco);
         }

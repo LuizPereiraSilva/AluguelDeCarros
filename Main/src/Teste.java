@@ -19,14 +19,14 @@ public class Teste{
             cadastro.cadastrarCliente("Matias", "002", "911112222");
             cadastro.cadastrarAdministrador("Pedro", "003", "922223333");
             cadastro.cadastrarAdministrador("Tobias", "004", "933334444");
+
+            cadastro.cadastrarCarro(1, 500, "Argo");
+            cadastro.cadastrarCarro(2, 650, "Cronos");
+            cadastro.cadastrarCarro(3, 1300, "Hilux");
+            cadastro.cadastrarCarro(4, 3000, "SW4");
         } catch(Exception e){
             print(e.getMessage());
         }
-
-        cadastro.cadastrarCarro(1, 500, "Argo");
-        cadastro.cadastrarCarro(2, 650, "Cronos");
-        cadastro.cadastrarCarro(3, 1300, "Hilux");
-        cadastro.cadastrarCarro(4, 3000, "SW4");
 
         print(cadastro.listarContas());
         print(cadastro.listarCarros());
@@ -36,12 +36,11 @@ public class Teste{
         try {
             cadastro.removerConta(2);
             cadastro.removerConta(4);
+            cadastro.removerCarro(2);
+            cadastro.removerCarro(4);
         }catch(Exception e){
             print(e.getMessage());
         }
-
-        cadastro.removerCarro(2);
-        cadastro.removerCarro(4);
 
         print(cadastro.listarContas());
         print(cadastro.listarCarros());
@@ -50,11 +49,10 @@ public class Teste{
 
         try {
             cadastro.atualizarConta("Tadeu", 1, "018", "190");
+            cadastro.atualizarPreco(1, 550.5f);
         } catch(Exception e){
             print(e.getMessage());
         }
-
-        cadastro.atualizarPreco(1, 550.5f);
 
         print(cadastro.listarContas());
         print(cadastro.listarCarros());

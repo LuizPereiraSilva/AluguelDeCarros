@@ -1,6 +1,8 @@
 package Negocio.Basico;
 
-public class Carro {
+import java.io.Serializable;
+
+public class Carro implements Serializable{
 
     private String modelo;
     private int idModelo;

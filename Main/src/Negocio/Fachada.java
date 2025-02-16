@@ -1,16 +1,16 @@
 package Negocio;
 
+import Exceptions.Carros.CarroNaoExisteException;
 import Exceptions.DataInvalidaException;
 import Exceptions.Contas.ContaJaExisteException;
 import Exceptions.Contas.ContaNaoExisteException;
-import Exceptions.NenhumaReservaException;
+import Exceptions.Reservas.NenhumaReservaException;
 import Exceptions.RepositorioCheioException;
 import Negocio.Basico.Carro;
 import Negocio.Basico.Conta;
 import Negocio.Basico.Reserva;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Fachada {
 
@@ -63,19 +63,19 @@ public class Fachada {
 
     //Métodos de Carro
 
-    public void cadastrarCarro(int modelo, float preco, String caracteristicas){
+    public void cadastrarCarro(int modelo, float preco, String caracteristicas) throws RepositorioCheioException{
         carros.cadastrarCarro(modelo, preco, caracteristicas);
     }
 
-    public void removerCarro(int id){
+    public void removerCarro(int id) throws CarroNaoExisteException{
         carros.removerCarro(id);
     }
 
-    public Carro buscarCarro(int id){
+    public Carro buscarCarro(int id) throws CarroNaoExisteException {
         return carros.buscarCarro(id);
     }
 
-    public void atualizarPreco(int id, float novoPreco){
+    public void atualizarPreco(int id, float novoPreco) throws CarroNaoExisteException{
         carros.atualizarPreco(id, novoPreco);
     }
 
@@ -86,7 +86,7 @@ public class Fachada {
     //Métodos de Reserva
 
     public void cadastrarReserva(Carro carro, Conta cliente, LocalDate dataInicio, LocalDate dataFinal,
-                                 String formaDePagamento) throws DataInvalidaException{
+                                 String formaDePagamento) throws DataInvalidaException, CarroNaoExisteException{
         reservas.cadastrarReserva(carro, cliente, dataInicio, dataFinal, formaDePagamento);
     }
 
@@ -99,7 +99,7 @@ public class Fachada {
     }
 
     public void atualizarReserva(int idReserva, Carro carro, Conta cliente, LocalDate dataInicio,
-                                 LocalDate dataFinal, String formaDePagamento){
+                                 LocalDate dataFinal, String formaDePagamento) throws CarroNaoExisteException{
         reservas.atualizarReserva(idReserva, carro, cliente, dataInicio, dataFinal, formaDePagamento);
     }
 

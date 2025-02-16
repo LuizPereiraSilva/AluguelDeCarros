@@ -1,6 +1,8 @@
 package Negocio.Basico;
 
-public abstract class Conta{
+import java.io.Serializable;
+
+public abstract class Conta implements Serializable{
 
     private String nome;
     private int idConta;
@@ -14,6 +16,8 @@ public abstract class Conta{
         this.telefone = telefone;
         this.administrador = administrador;
     }
+
+    public Conta(){}
 
     public String getNome(){
         return this.nome;
